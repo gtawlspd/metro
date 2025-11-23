@@ -20,7 +20,8 @@ export function generateCanineDeploymentBBCode() {
   const itemsLocated = getValue("cdItemsLocated")
   const narrative = getValue("cdNarrative")
 
-  const k9NameWithNumber = k9Number ? `${k9Name} (#${k9Number})` : k9Name
+  const hasK9 = k9Name.trim().length > 0
+  const k9NameWithNumber = hasK9 && k9Number ? `${k9Name} (#${k9Number})` : k9Name
 
   let bbcode = ""
   bbcode += "[divbox2=transparent]\n"
@@ -32,8 +33,14 @@ export function generateCanineDeploymentBBCode() {
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]1. GENERAL INFORMATION[/color][/size][/b]\n"
   bbcode += "[/divbox]\n"
   bbcode += `[indent=10][b]1.1 | HANDLER NAME:[/b] ${handlerName}\n`
-  bbcode += `[b]1.2 | K-9 NAME:[/b] ${k9NameWithNumber}\n`
-  bbcode += `[b]1.3 | K-9 SPECIALIZATION:[/b] ${k9Specialization}\n`
+
+  if (hasK9) {
+    bbcode += `[b]1.2 | K-9 NAME:[/b] ${k9NameWithNumber}\n`
+    if (k9Specialization) {
+      bbcode += `[b]1.3 | K-9 SPECIALIZATION:[/b] ${k9Specialization}\n`
+    }
+  }
+
   bbcode += `[b]1.4 | DIVISIONAL RANK:[/b] ${divisionalRank}\n`
   bbcode += `[b]1.5 | SERIAL NUMBER:[/b] ${badgeNumber} [/indent]\n\n`
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]2. INCIDENT SUMMARY[/color][/size][/b]\n"
@@ -48,12 +55,12 @@ export function generateCanineDeploymentBBCode() {
   bbcode += `[indent=10][b]3.1 | NARRATIVE:[/b]\n\n`
   bbcode += `${narrative}\n\n`
 
-  if (signatureImage) {
+  if (signatureImage && signatureImage.trim().length > 0) {
     bbcode += `[b]3.2 | SIGNATURE:[/b]\n\n`
     bbcode += `[img]${signatureImage}[/img]\n`
     bbcode += `${handlerName}\n`
   } else {
-    bbcode += `[b]3.2 | SIGNATURE:[/b] ${handlerName}\n`
+    bbcode += `[b]3.2 | SIGNATURE:[/b] [ucase]${handlerName}[/ucase]\n`
   }
 
   bbcode += "[/indent]\n"

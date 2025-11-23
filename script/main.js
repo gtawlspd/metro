@@ -6,6 +6,7 @@ import { generatePatrolReportBBCode } from "./generators/patrol-report.js"
 import { hideAllSections, populateStaticHandlerInfo, setupDropdowns } from "./utils/ui.js"
 import { loadSavedReports } from "./utils/localstorage.js"
 import { loadDeploymentTypes } from "./utils/deployment-types.js"
+import { checkAndPromptRestore, clearAutoSave, initializeAutosave, markFormAsCleared } from "./utils/autosave.js"
 
 function updateGMTClock() {
   const now = new Date()
@@ -59,6 +60,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("cdDate").value = setTodayDate()
     document.getElementById("canineDeploymentGenerator").style.display = "block"
     document.getElementById("canineDeploymentGenerator").scrollIntoView({ behavior: "smooth" })
+    initializeAutosave("canineDeployment", document.getElementById("canineDeploymentForm"))
+    checkAndPromptRestore("canineDeployment")
   })
 
   document.getElementById("canineBiteButton")?.addEventListener("click", (e) => {
@@ -67,6 +70,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("cbDate").value = setTodayDate()
     document.getElementById("canineBiteGenerator").style.display = "block"
     document.getElementById("canineBiteGenerator").scrollIntoView({ behavior: "smooth" })
+    initializeAutosave("canineBite", document.getElementById("canineBiteForm"))
+    checkAndPromptRestore("canineBite")
   })
 
   document.getElementById("canineSearchButton")?.addEventListener("click", (e) => {
@@ -75,6 +80,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("csDate").value = setTodayDate()
     document.getElementById("canineSearchGenerator").style.display = "block"
     document.getElementById("canineSearchGenerator").scrollIntoView({ behavior: "smooth" })
+    initializeAutosave("canineSearch", document.getElementById("canineSearchForm"))
+    checkAndPromptRestore("canineSearch")
   })
 
   document.getElementById("metroDeploymentButton")?.addEventListener("click", (e) => {
@@ -83,6 +90,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("mdDate").value = setTodayDate()
     document.getElementById("metroDeploymentGenerator").style.display = "block"
     document.getElementById("metroDeploymentGenerator").scrollIntoView({ behavior: "smooth" })
+    initializeAutosave("metroDeployment", document.getElementById("metroDeploymentForm"))
+    checkAndPromptRestore("metroDeployment")
   })
 
   document.getElementById("patrolReportButton")?.addEventListener("click", (e) => {
@@ -91,6 +100,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("prDate").value = setTodayDate()
     document.getElementById("patrolReportGenerator").style.display = "block"
     document.getElementById("patrolReportGenerator").scrollIntoView({ behavior: "smooth" })
+    initializeAutosave("patrolReport", document.getElementById("patrolReportForm"))
+    checkAndPromptRestore("patrolReport")
   })
 
   document.getElementById("canineDeploymentBackButton")?.addEventListener("click", () => {
@@ -122,55 +133,65 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
     generateCanineDeploymentBBCode()
     document.getElementById("cdBBCodeOutput")?.scrollIntoView({ behavior: "smooth" })
+    clearAutoSave("canineDeployment")
   })
 
   document.getElementById("generateCanineBite")?.addEventListener("click", (e) => {
     e.preventDefault()
     generateCanineBiteBBCode()
     document.getElementById("cbBBCodeOutput")?.scrollIntoView({ behavior: "smooth" })
+    clearAutoSave("canineBite")
   })
 
   document.getElementById("generateCanineSearch")?.addEventListener("click", (e) => {
     e.preventDefault()
     generateCanineSearchBBCode()
     document.getElementById("csBBCodeOutput")?.scrollIntoView({ behavior: "smooth" })
+    clearAutoSave("canineSearch")
   })
 
   document.getElementById("generateMetroDeployment")?.addEventListener("click", (e) => {
     e.preventDefault()
     generateMetroDeploymentBBCode()
     document.getElementById("mdBBCodeOutput")?.scrollIntoView({ behavior: "smooth" })
+    clearAutoSave("metroDeployment")
   })
 
   document.getElementById("generatePatrolReport")?.addEventListener("click", (e) => {
     e.preventDefault()
     generatePatrolReportBBCode()
     document.getElementById("prBBCodeOutput")?.scrollIntoView({ behavior: "smooth" })
+    clearAutoSave("patrolReport")
   })
 
   document.getElementById("newCanineDeployment")?.addEventListener("click", () => {
     document.getElementById("canineDeploymentForm").reset()
     document.getElementById("cdDate").value = setTodayDate()
+    markFormAsCleared("canineDeployment")
   })
 
   document.getElementById("newCanineBite")?.addEventListener("click", () => {
     document.getElementById("canineBiteForm").reset()
     document.getElementById("cbDate").value = setTodayDate()
+    markFormAsCleared("canineBite")
   })
 
   document.getElementById("newCanineSearch")?.addEventListener("click", () => {
     document.getElementById("canineSearchForm").reset()
     document.getElementById("csDate").value = setTodayDate()
+    markFormAsCleared("canineSearch")
   })
 
   document.getElementById("newMetroDeployment")?.addEventListener("click", () => {
     document.getElementById("metroDeploymentForm").reset()
     document.getElementById("mdDate").value = setTodayDate()
+    markFormAsCleared("metroDeployment")
   })
 
   document.getElementById("newPatrolReport")?.addEventListener("click", () => {
     document.getElementById("patrolReportForm").reset()
     document.getElementById("prDate").value = setTodayDate()
+    markFormAsCleared("patrolReport")
   })
 
   document.getElementById("formButton")?.addEventListener("click", handleSidebarSaveEdit)
@@ -250,9 +271,9 @@ export function handleSidebarSaveEdit(e) {
       <div id="nameAndSerial">
         <input id="handlerName" type="text" placeholder="Handler Name" value="${handlerName}" />
         <input id="badgeNumber" type="text" placeholder="Badge Number" value="${badgeNumber}" />
-        <input id="k9Name" type="text" placeholder="K9 Name" value="${k9Name}" />
+        <input id="k9Name" type="text" placeholder="K9 Name (optional)" value="${k9Name}" />
         <input id="k9Number" type="text" placeholder="K9 Number (auto)" value="${k9Number}" readonly />
-        <input id="k9Specialization" type="text" placeholder="K9 Specialization" value="${k9Specialization}" list="k9SpecializationList" />
+        <input id="k9Specialization" type="text" placeholder="K9 Specialization (optional)" value="${k9Specialization}" list="k9SpecializationList" />
         <datalist id="k9SpecializationList">
           <option value="FIREARMS">
           <option value="NARCOTICS">

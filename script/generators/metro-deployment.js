@@ -55,6 +55,32 @@ export function generateMetroDeploymentBBCode() {
     injuredList = "None"
   }
 
+  const suspectArray = suspectCasualties.split("\n").filter((s) => s.trim())
+  let suspectList = ""
+  if (suspectArray.length > 1) {
+    suspectList = `${suspectArray[0].trim()}`
+    for (let i = 1; i < suspectArray.length; i++) {
+      suspectList += `\n[*]${suspectArray[i].trim()}`
+    }
+  } else if (suspectArray.length === 1) {
+    suspectList = suspectArray[0].trim()
+  } else {
+    suspectList = "None"
+  }
+
+  const civilianArray = civilianCasualties.split("\n").filter((c) => c.trim())
+  let civilianList = ""
+  if (civilianArray.length > 1) {
+    civilianList = `${civilianArray[0].trim()}`
+    for (let i = 1; i < civilianArray.length; i++) {
+      civilianList += `\n[*]${civilianArray[i].trim()}`
+    }
+  } else if (civilianArray.length === 1) {
+    civilianList = civilianArray[0].trim()
+  } else {
+    civilianList = "None"
+  }
+
   let bbcode = ""
   bbcode += "[divbox2=transparent]\n\n"
   bbcode +=
@@ -97,18 +123,29 @@ export function generateMetroDeploymentBBCode() {
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]3. CASUALTY & INJURY INFORMATION[/color][/size][/b][/divbox]\n"
   bbcode += "[indent=10][u]3.1[/u] [b]INJURED TEAM MEMBERS: [/b]\n"
   bbcode += `[list]${injuredList}[/list]\n\n`
-  bbcode += `[u]3.3[/u] [b]SUSPECT CASUALTIES:[/b] ${suspectCasualties || "None"}\n`
-  bbcode += `[u]3.4[/u] [b]CIVILIAN CASUALTIES:[/b] ${civilianCasualties || "None"}[/indent]\n`
+
+  if (suspectArray.length > 1) {
+    bbcode += `[u]3.3[/u] [b]SUSPECT CASUALTIES:[/b]\n[list]${suspectList}[/list]\n`
+  } else {
+    bbcode += `[u]3.3[/u] [b]SUSPECT CASUALTIES:[/b] ${suspectList}\n`
+  }
+
+  if (civilianArray.length > 1) {
+    bbcode += `[u]3.4[/u] [b]CIVILIAN CASUALTIES:[/b]\n[list]${civilianList}[/list][/indent]\n`
+  } else {
+    bbcode += `[u]3.4[/u] [b]CIVILIAN CASUALTIES:[/b] ${civilianList}[/indent]\n`
+  }
+
   bbcode += "[br][/br]\n"
   bbcode += "[divbox=black][/divbox]\n"
   bbcode += "[br][/br]\n"
   bbcode += "[aligntable=left,200,0,0,0,0,0][center][b]FILING OFFICER SIGNATURE[/b]\n"
 
-  if (signatureImage) {
+  if (signatureImage && signatureImage.trim().length > 0) {
     bbcode += `[i][img]${signatureImage}[/img][/i]\n`
     bbcode += `[i]${handlerName}[/i][/center]\n`
   } else {
-    bbcode += `[i]${handlerName}[/i][/center]\n`
+    bbcode += `[i][ucase]${handlerName}[/ucase][/i][/center]\n`
   }
 
   bbcode += "[/aligntable][aligntable=left,721,0,0,0,0,0]\n"
