@@ -79,8 +79,13 @@ export function generateCanineDeploymentBBCode() {
   saveReport("canineDeployment", {
     handlerName,
     k9Name,
-    date,
+    date: getValue("cdDate"),
     time,
     location,
+    searchType,
+    positiveAlert,
+    itemsLocated,
+    narrative,
+    bbcode, // Store generated BBCode
   })
 }

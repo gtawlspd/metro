@@ -70,7 +70,14 @@ export function generatePatrolReportBBCode() {
   }
 
   saveReport("patrolReport", {
-    date,
-    officers: officers.split("\n")[0],
+    date: getValue("prDate"),
+    officers,
+    caninePatrol,
+    swatPatrol,
+    jointPatrol,
+    gangPatrol,
+    deployments,
+    additionalInfo,
+    bbcode,
   })
 }

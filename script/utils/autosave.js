@@ -1,4 +1,4 @@
-const AUTOSAVE_INTERVAL = 2000 // Auto-save every 2 seconds
+const AUTOSAVE_INTERVAL = 500 // Save after 500ms of inactivity
 const UNDO_STACK_SIZE = 50 // Keep last 50 states
 
 const undoStacks = {}
@@ -21,6 +21,8 @@ export function initializeAutosave(formType, formElement) {
       scheduleAutosave(formType, formElement)
     })
   })
+
+  checkAndPromptRestore(formType)
 }
 
 function scheduleAutosave(formType, formElement) {

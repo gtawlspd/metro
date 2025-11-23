@@ -166,8 +166,23 @@ export function generateMetroDeploymentBBCode() {
 
   saveReport("metroDeployment", {
     handlerName,
-    date,
+    dPlatoon,
+    k9Platoon,
+    hPlatoon,
+    bombSquad,
+    incidentCommander,
+    crisisNegotiator,
+    tacticalCommander,
+    involvedMembers,
     deploymentType,
+    date: getValue("mdDate"),
     location,
+    startTime,
+    endTime,
+    timeline,
+    injuredTeamMembers,
+    suspectCasualties,
+    civilianCasualties,
+    bbcode,
   })
 }

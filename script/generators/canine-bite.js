@@ -78,9 +78,13 @@ export function generateCanineBiteBBCode() {
 
   saveReport("canineBite", {
     handlerName,
-    k9Name,
-    date,
+    date: getValue("cbDate"),
     time,
     nameOfBitten,
+    extentOfInjuries,
+    fdAttendance,
+    otherOfficers,
+    narrative,
+    bbcode, // Store generated BBCode
   })
 }
