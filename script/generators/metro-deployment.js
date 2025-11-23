@@ -29,30 +29,30 @@ export function generateMetroDeploymentBBCode() {
   const membersArray = involvedMembers.split("\n").filter((m) => m.trim())
   let membersList = ""
   if (membersArray.length > 0) {
-    membersList = `* ${membersArray[0].trim()}`
+    membersList = `${membersArray[0].trim()}`
     for (let i = 1; i < membersArray.length; i++) {
-      membersList += `\n[*] ${membersArray[i].trim()}`
+      membersList += `\n[*]${membersArray[i].trim()}`
     }
   }
 
   const timelineArray = timeline.split("\n").filter((t) => t.trim())
   let timelineList = ""
   if (timelineArray.length > 0) {
-    timelineList = `* ${timelineArray[0].trim()}`
+    timelineList = `${timelineArray[0].trim()}`
     for (let i = 1; i < timelineArray.length; i++) {
-      timelineList += `\n[*] ${timelineArray[i].trim()}`
+      timelineList += `\n[*]${timelineArray[i].trim()}`
     }
   }
 
   const injuredArray = injuredTeamMembers.split("\n").filter((i) => i.trim())
   let injuredList = ""
   if (injuredArray.length > 0) {
-    injuredList = `* ${injuredArray[0].trim()}`
+    injuredList = `${injuredArray[0].trim()}`
     for (let i = 1; i < injuredArray.length; i++) {
-      injuredList += `\n[*] ${injuredArray[i].trim()}`
+      injuredList += `\n[*]${injuredArray[i].trim()}`
     }
   } else {
-    injuredList = "* None"
+    injuredList = "None"
   }
 
   let bbcode = ""

@@ -34,9 +34,9 @@ export function generatePatrolReportBBCode() {
 
   let deploymentsFormatted = ""
   if (deploymentLines.length > 0) {
-    deploymentsFormatted = `[list]* ${deploymentLines[0]}`
+    deploymentsFormatted = `[list]${deploymentLines[0]}`
     for (let i = 1; i < deploymentLines.length; i++) {
-      deploymentsFormatted += `\n[*] ${deploymentLines[i]}`
+      deploymentsFormatted += `\n[*]${deploymentLines[i]}`
     }
     deploymentsFormatted += "[/list]"
   }

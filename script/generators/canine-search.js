@@ -20,9 +20,9 @@ export function generateCanineSearchBBCode() {
   const handlersArray = canineHandlers.split("\n").filter((h) => h.trim())
   let handlersList = ""
   if (handlersArray.length > 0) {
-    handlersList = `* ${handlersArray[0].trim()}`
+    handlersList = `${handlersArray[0].trim()}`
     for (let i = 1; i < handlersArray.length; i++) {
-      handlersList += `\n[*] ${handlersArray[i].trim()}`
+      handlersList += `\n[*]${handlersArray[i].trim()}`
     }
   }
 

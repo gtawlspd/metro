@@ -23,12 +23,12 @@ export function generateCanineBiteBBCode() {
 
   let officersList = ""
   if (officersArray.length > 0) {
-    officersList = `* ${officersArray[0].trim()}`
+    officersList = `${officersArray[0].trim()}`
     for (let i = 1; i < officersArray.length; i++) {
-      officersList += `\n[*] ${officersArray[i].trim()}`
+      officersList += `\n[*]${officersArray[i].trim()}`
     }
   } else {
-    officersList = "* N/A"
+    officersList = "N/A"
   }
 
   let bbcode = ""
