@@ -212,7 +212,6 @@ h2 {
 }
 
 .sidebar {
-  /* Darker tactical sidebar */
   position: fixed;
   left: 0;
   top: 0;
@@ -224,10 +223,42 @@ h2 {
   box-sizing: border-box;
   overflow-y: auto;
   z-index: 9999;
+  /* Added smooth transition for collapse */
+  transition: width 0.4s ease, transform 0.4s ease;
+}
+
+/* Collapsed sidebar state */
+.sidebar.collapsed {
+  width: 60px;
+}
+
+.sidebar.collapsed .sidebar-image,
+.sidebar.collapsed .server-clock,
+.sidebar.collapsed .settings-content,
+.sidebar.collapsed .dropdown {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar.collapsed .settings-toggle-btn {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding: 12px 8px;
+  font-size: 0.75rem;
+}
+
+.sidebar.collapsed #settingsToggleIcon {
+  transform: rotate(90deg);
 }
 
 body.background {
   margin-left: 280px;
+  /* Added smooth transition for content shift */
+  transition: margin-left 0.4s ease;
+}
+
+body.background.sidebar-collapsed {
+  margin-left: 60px;
 }
 
 .sidebar-image {
@@ -373,6 +404,7 @@ body.background {
 }
 
 .officer-inputs input[type="text"],
+.officer-inputs input[type="url"],
 .officer-inputs input[type="file"] {
   /* Updated input styling */
   width: 85%;
@@ -623,4 +655,58 @@ body.background {
 .checkbox-group input[type="checkbox"] {
   width: auto;
   margin: 0;
+}
+
+/* Settings section with toggle */
+.settings-section {
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.settings-toggle-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
+  color: #e8e8e8;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.settings-toggle-btn:hover {
+  background: linear-gradient(135deg, #2a4a6f 0%, #1e3a5f 100%);
+  border-color: #4a90e2;
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.2);
+}
+
+#settingsToggleIcon {
+  font-size: 0.75rem;
+  color: #4a90e2;
+  transition: transform 0.3s ease;
+}
+
+.settings-section.collapsed #settingsToggleIcon {
+  transform: rotate(-90deg);
+}
+
+.settings-content {
+  max-height: 600px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.settings-section.collapsed .settings-content {
+  max-height: 0;
+  opacity: 0;
 }

@@ -19,6 +19,28 @@ export function generatePatrolReportBBCode() {
     .filter((o) => o.trim())
     .join("\n")
 
+  const deploymentLines = deployments
+    .split("\n")
+    .filter((d) => d.trim())
+    .map((line) => {
+      line = line.trim()
+      // Check if line contains URL format: url|name
+      if (line.includes("|")) {
+        const [url, name] = line.split("|").map((s) => s.trim())
+        return `[url=${url}]${name}[/url]`
+      }
+      return line
+    })
+
+  let deploymentsFormatted = ""
+  if (deploymentLines.length > 0) {
+    deploymentsFormatted = `[list]* ${deploymentLines[0]}`
+    for (let i = 1; i < deploymentLines.length; i++) {
+      deploymentsFormatted += `\n[*] ${deploymentLines[i]}`
+    }
+    deploymentsFormatted += "[/list]"
+  }
+
   let bbcode = ""
   bbcode += "[divbox2=transparent][font=Arial][center]LOS SANTOS POLICE DEPARTMENT\n"
   bbcode += "[size=120][b]METROPOLITAN DIVISION\n"
@@ -28,14 +50,14 @@ export function generatePatrolReportBBCode() {
   bbcode += "[b]2. Officers[/b]\n"
   bbcode += `${officersList}\n\n`
   bbcode += "[b]3. Patrol Type[/b]\n"
-  bbcode += "[cb]" + (caninePatrol ? "c" : "") + "[/cb] Canine Patrol\n"
-  bbcode += "[cb]" + (swatPatrol ? "c" : "") + "[/cb] SWAT Crime Suppression Patrol\n"
-  bbcode += "[cb]" + (jointPatrol ? "c" : "") + "[/cb] Joint Crime Suppression Patrol\n"
-  bbcode += "[cb]" + (gangPatrol ? "c" : "") + "[/cb] Gang Crime Suppression Patrol\n\n"
+  bbcode += `[cb${caninePatrol ? "c" : ""}][/cb${caninePatrol ? "c" : ""}] Canine Patrol\n`
+  bbcode += `[cb${swatPatrol ? "c" : ""}][/cb${swatPatrol ? "c" : ""}] SWAT Crime Suppression Patrol\n`
+  bbcode += `[cb${jointPatrol ? "c" : ""}][/cb${jointPatrol ? "c" : ""}] Joint Crime Suppression Patrol\n`
+  bbcode += `[cb${gangPatrol ? "c" : ""}][/cb${gangPatrol ? "c" : ""}] Gang Crime Suppression Patrol\n\n`
   bbcode += "[b]4. Deployments[/b]\n"
-  bbcode += `${deployments}\n\n`
+  bbcode += `${deploymentsFormatted}\n\n`
   bbcode += "[b]5. Additional Information[/b]\n"
-  bbcode += `${additionalInfo}`
+  bbcode += `${additionalInfo}\n[/font][/divbox2]`
 
   const outputElem = document.getElementById("prBBCodeOutput")
   outputElem.value = bbcode

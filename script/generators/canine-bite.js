@@ -19,11 +19,17 @@ export function generateCanineBiteBBCode() {
   const otherOfficers = getValue("cbOtherOfficers")
   const narrative = getValue("cbNarrative")
 
-  const officersList = otherOfficers
-    .split("\n")
-    .filter((o) => o.trim())
-    .map((o) => `[*] ${o.trim()}`)
-    .join("\n")
+  const officersArray = otherOfficers.split("\n").filter((o) => o.trim())
+
+  let officersList = ""
+  if (officersArray.length > 0) {
+    officersList = `* ${officersArray[0].trim()}`
+    for (let i = 1; i < officersArray.length; i++) {
+      officersList += `\n[*] ${officersArray[i].trim()}`
+    }
+  } else {
+    officersList = "* N/A"
+  }
 
   let bbcode = ""
   bbcode += "[divbox2=transparent]\n"
@@ -46,7 +52,7 @@ export function generateCanineBiteBBCode() {
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]3. INCIDENT NARRATIVE[/color][/size][/b]\n"
   bbcode += "[/divbox]\n"
   bbcode += "[indent=10][b]3.1 | OTHER OFFICERS ONSCENE:[/b]\n"
-  bbcode += `[list]${officersList ? "\n" + officersList : "\n[*] N/A"}[/list]\n`
+  bbcode += `[list]${officersList}[/list]\n`
   bbcode += "[b]3.2 | NARRATIVE:[/b]\n\n"
   bbcode += `${narrative}\n\n`
   bbcode += "[b]3.3 | SIGNATURE:[/b]\n\n"

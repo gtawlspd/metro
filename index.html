@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>LAPD Metropolitan Division - K9 Unit Report System</title>
+  <!-- Updated title to Metropolitan Report Generator -->
+  <title>LSPD Metropolitan Division - Metropolitan Report Generator</title>
   <link rel="icon" href="ftp-main/images/lspdmetrologo.png" type="image/png">
   <link href="styles/index.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -12,32 +13,49 @@
 </head>
 
 <body class="background">
-  <div class="sidebar">
-    <!-- Using Metro logo in sidebar -->
-    <img alt="LAPD Metro Division Logo" class="sidebar-image" src="ftp-main/images/lspdmetrologo.png" />
+  <div class="sidebar" id="sidebar">
+    <img alt="LSPD Metro Division Logo" class="sidebar-image" src="ftp-main/images/lspdmetrologo.png" />
     
     <div class="server-clock">
       <div class="clock-time" id="gmtClock">00:00:00</div>
       <div class="clock-label">(Current Server Time)</div>
     </div>
     
-    <div class="officer-inputs">
-      <form id="officerForm">
-        <div id="nameAndSerial">
-          <input id="handlerName" placeholder="Handler Name" required type="text" />
-          <input id="badgeNumber" placeholder="Badge Number" required type="text" />
-          <input id="k9Name" placeholder="K9 Name" required type="text" />
-          <input id="k9Number" placeholder="K9 Number" required type="text" />
-          <input id="divisionalRank" placeholder="Divisional Rank" required type="text" />
+    <!-- Settings panel with collapse/expand -->
+    <div class="settings-section">
+      <button class="settings-toggle-btn" id="settingsToggleBtn">
+        <span id="settingsToggleText">HANDLER SETTINGS</span>
+        <span id="settingsToggleIcon">▼</span>
+      </button>
+      
+      <div class="settings-content" id="settingsContent">
+        <div class="officer-inputs">
+          <form id="officerForm">
+            <div id="nameAndSerial">
+              <input id="handlerName" placeholder="Handler Name" required type="text" />
+              <input id="badgeNumber" placeholder="Badge Number" required type="text" />
+              <input id="k9Name" placeholder="K9 Name" required type="text" />
+              <input id="k9Number" placeholder="K9 Number (auto)" readonly type="text" />
+              <input id="k9Specialization" placeholder="K9 Specialization" required type="text" list="k9SpecializationList" />
+              <datalist id="k9SpecializationList">
+                <option value="FIREARMS">
+                <option value="NARCOTICS">
+                <option value="EXPLOSIVES">
+                <option value="DUAL PURPOSE">
+              </datalist>
+              <input id="divisionalRank" placeholder="Divisional Rank" required type="text" />
+            </div>
+            <label for="signatureUrl" class="signature-label">Signature Image URL (.png)</label>
+            <input id="signatureUrl" type="url" placeholder="https://i.imgur.com/example.png" />
+            <button id="formButton" type="submit">SUBMIT</button>
+          </form>
         </div>
-        <label for="signatureUpload" class="signature-label">Upload Signature (.png)</label>
-        <input id="signatureUpload" type="file" accept=".png,image/png" />
-        <button id="formButton" type="submit">SUBMIT</button>
-      </form>
+      </div>
     </div>
 
+    <!-- Saved reports dropdown -->
     <div class="dropdown">
-      <button class="dropdown-btn">Saved Reports</button>
+      <button class="dropdown-btn">SAVED REPORTS</button>
       <div class="dropdown-content" id="savedReportsDropdown"></div>
     </div>
   </div>
@@ -47,8 +65,9 @@
     <div class="header-section">
       <img class="header-logo" src="ftp-main/images/lspdmetrologo.png" alt="Metro Division Logo" />
       <div class="header-text">
-        <h1 class="main-title">LAPD METROPOLITAN DIVISION</h1>
-        <h2 class="sub-title">K9 UNIT REPORT SYSTEM</h2>
+        <h1 class="main-title">LSPD METROPOLITAN DIVISION</h1>
+        <!-- Changed from K9 UNIT REPORT SYSTEM to Metropolitan Report Generator -->
+        <h2 class="sub-title">METROPOLITAN REPORT GENERATOR</h2>
       </div>
       <img class="header-logo" src="ftp-main/images/lspdcaninelogo.png" alt="K9 Unit Logo" />
     </div>
@@ -298,7 +317,8 @@
           </div>
           <div class="header-tasks">
             <label for="prDeployments">Deployments:</label>
-            <textarea id="prDeployments" placeholder="List deployment types or URLs" required></textarea>
+            <!-- Added helper text for URL linking format -->
+            <textarea id="prDeployments" placeholder="Format: url|Name (e.g., lspd.com|Breaching)" required></textarea>
             <label for="prAdditionalInfo">Additional Information:</label>
             <textarea id="prAdditionalInfo" placeholder="Details about arrests, pursuits, investigations, etc."></textarea>
           </div>

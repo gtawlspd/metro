@@ -17,11 +17,14 @@ export function generateCanineSearchBBCode() {
   const timeEnded = getValue("csTimeEnded")
   const narrative = getValue("csNarrative")
 
-  const handlersList = canineHandlers
-    .split("\n")
-    .filter((h) => h.trim())
-    .map((h) => `[*] ${h.trim()}`)
-    .join("\n")
+  const handlersArray = canineHandlers.split("\n").filter((h) => h.trim())
+  let handlersList = ""
+  if (handlersArray.length > 0) {
+    handlersList = `* ${handlersArray[0].trim()}`
+    for (let i = 1; i < handlersArray.length; i++) {
+      handlersList += `\n[*] ${handlersArray[i].trim()}`
+    }
+  }
 
   let bbcode = ""
   bbcode += "[divbox2=transparent]\n\n"
@@ -43,9 +46,7 @@ export function generateCanineSearchBBCode() {
   bbcode += "[u]1.2[/u] [b]INVOLVED PERSONNEL:[/b][list=none]\n"
   bbcode += "[b]TEAM LEADER:[/b]\n"
   bbcode += `[list][*] ${teamLeader}[/list]\n\n`
-  bbcode += "[b]CANINE HANDLER(S):[/b][list]\n"
-  bbcode += handlersList + "\n"
-  bbcode += "[/list][/list]\n\n"
+  bbcode += `[b]CANINE HANDLER(S):[/b][list]${handlersList}[/list][/list]\n\n`
   bbcode += `[u]1.3[/u] [b]TYPE OF DEPLOYMENT:[/b] ${deploymentType}[/indent]\n`
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]2. DEPLOYMENT TIMELINE[/color][/size][/b]\n"
   bbcode += "[/divbox]\n"

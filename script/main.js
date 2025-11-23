@@ -39,11 +39,19 @@ export function formatDateForBBCode(dateStr) {
   return `${day}/${month}/${year}`
 }
 
+function calculateK9Number(badgeNumber) {
+  if (!badgeNumber) return ""
+  const badgeStr = badgeNumber.toString()
+  const lastThree = badgeStr.slice(-3).padStart(3, "0")
+  return lastThree
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   setupDropdowns()
   loadSavedReports()
   loadDeploymentTypes()
   populateStaticHandlerInfo()
+  initializeSettingsToggle()
 
   document.getElementById("canineDeploymentButton")?.addEventListener("click", (e) => {
     e.preventDefault()
@@ -168,31 +176,50 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("formButton")?.addEventListener("click", handleSidebarSaveEdit)
 })
 
+function initializeSettingsToggle() {
+  const settingsToggleBtn = document.getElementById("settingsToggleBtn")
+  const settingsSection = document.querySelector(".settings-section")
+  const sidebar = document.getElementById("sidebar")
+  const body = document.body
+
+  settingsToggleBtn?.addEventListener("click", () => {
+    const isCollapsed = settingsSection.classList.contains("collapsed")
+
+    if (isCollapsed) {
+      // Expand settings
+      settingsSection.classList.remove("collapsed")
+    } else {
+      // Collapse settings
+      settingsSection.classList.add("collapsed")
+    }
+  })
+}
+
 export function handleSidebarSaveEdit(e) {
   e.preventDefault()
   const form = document.getElementById("officerForm")
   const button = document.getElementById("formButton")
+  const settingsSection = document.querySelector(".settings-section")
 
   if (button.textContent === "SUBMIT") {
     const handlerName = document.getElementById("handlerName").value
     const badgeNumber = document.getElementById("badgeNumber").value
     const k9Name = document.getElementById("k9Name").value
-    const k9Number = document.getElementById("k9Number").value
+    const k9Specialization = document.getElementById("k9Specialization").value
     const divisionalRank = document.getElementById("divisionalRank").value
-    const signatureFile = document.getElementById("signatureUpload").files[0]
+    const signatureUrl = document.getElementById("signatureUrl").value
+
+    const k9Number = calculateK9Number(badgeNumber)
 
     localStorage.setItem("handlerName", handlerName)
     localStorage.setItem("badgeNumber", badgeNumber)
     localStorage.setItem("k9Name", k9Name)
     localStorage.setItem("k9Number", k9Number)
+    localStorage.setItem("k9Specialization", k9Specialization)
     localStorage.setItem("divisionalRank", divisionalRank)
 
-    if (signatureFile) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        localStorage.setItem("signatureImage", event.target.result)
-      }
-      reader.readAsDataURL(signatureFile)
+    if (signatureUrl) {
+      localStorage.setItem("signatureImage", signatureUrl)
     }
 
     form.innerHTML = `
@@ -200,29 +227,56 @@ export function handleSidebarSaveEdit(e) {
         <span class="static-text">${handlerName}</span><br>
         <span id="serialNumberStatic" class="static-text">#${badgeNumber}</span><br>
         <span class="static-text">K9: ${k9Name} (#${k9Number})</span><br>
+        <span class="static-text">${k9Specialization}</span><br>
         <span class="static-text">${divisionalRank}</span>
       </div>
       <button id="formButton" type="submit">EDIT</button>
     `
+
+    setTimeout(() => {
+      settingsSection.classList.add("collapsed")
+    }, 500)
   } else {
     const handlerName = localStorage.getItem("handlerName") || ""
     const badgeNumber = localStorage.getItem("badgeNumber") || ""
     const k9Name = localStorage.getItem("k9Name") || ""
-    const k9Number = localStorage.getItem("k9Number") || ""
+    const k9Specialization = localStorage.getItem("k9Specialization") || ""
     const divisionalRank = localStorage.getItem("divisionalRank") || ""
+    const signatureUrl = localStorage.getItem("signatureImage") || ""
+
+    const k9Number = calculateK9Number(badgeNumber)
 
     form.innerHTML = `
       <div id="nameAndSerial">
         <input id="handlerName" type="text" placeholder="Handler Name" value="${handlerName}" />
         <input id="badgeNumber" type="text" placeholder="Badge Number" value="${badgeNumber}" />
         <input id="k9Name" type="text" placeholder="K9 Name" value="${k9Name}" />
-        <input id="k9Number" type="text" placeholder="K9 Number" value="${k9Number}" />
+        <input id="k9Number" type="text" placeholder="K9 Number (auto)" value="${k9Number}" readonly />
+        <input id="k9Specialization" type="text" placeholder="K9 Specialization" value="${k9Specialization}" list="k9SpecializationList" />
+        <datalist id="k9SpecializationList">
+          <option value="FIREARMS">
+          <option value="NARCOTICS">
+          <option value="EXPLOSIVES">
+          <option value="DUAL PURPOSE">
+        </datalist>
         <input id="divisionalRank" type="text" placeholder="Divisional Rank" value="${divisionalRank}" />
       </div>
-      <label for="signatureUpload" class="signature-label">Upload Signature (.png)</label>
-      <input id="signatureUpload" type="file" accept=".png,image/png" />
+      <label for="signatureUrl" class="signature-label">Signature Image URL (.png)</label>
+      <input id="signatureUrl" type="url" placeholder="https://i.imgur.com/example.png" value="${signatureUrl}" />
       <button id="formButton" type="submit">SUBMIT</button>
     `
+
+    setTimeout(() => {
+      const badgeInput = document.getElementById("badgeNumber")
+      const k9NumberInput = document.getElementById("k9Number")
+
+      badgeInput?.addEventListener("input", (e) => {
+        const newK9Number = calculateK9Number(e.target.value)
+        if (k9NumberInput) {
+          k9NumberInput.value = newK9Number
+        }
+      })
+    }, 0)
   }
 
   setTimeout(() => {

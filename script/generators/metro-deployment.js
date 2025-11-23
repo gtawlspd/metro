@@ -26,21 +26,34 @@ export function generateMetroDeploymentBBCode() {
   const suspectCasualties = getValue("mdSuspectCasualties")
   const civilianCasualties = getValue("mdCivilianCasualties")
 
-  const membersList = involvedMembers
-    .split("\n")
-    .filter((m) => m.trim())
-    .map((m) => `[*] ${m.trim()}`)
-    .join("\n")
-  const timelineList = timeline
-    .split("\n")
-    .filter((t) => t.trim())
-    .map((t) => `[*]${t.trim()}`)
-    .join("\n")
-  const injuredList = injuredTeamMembers
-    .split("\n")
-    .filter((i) => i.trim())
-    .map((i) => `[*] ${i.trim()}`)
-    .join("\n")
+  const membersArray = involvedMembers.split("\n").filter((m) => m.trim())
+  let membersList = ""
+  if (membersArray.length > 0) {
+    membersList = `* ${membersArray[0].trim()}`
+    for (let i = 1; i < membersArray.length; i++) {
+      membersList += `\n[*] ${membersArray[i].trim()}`
+    }
+  }
+
+  const timelineArray = timeline.split("\n").filter((t) => t.trim())
+  let timelineList = ""
+  if (timelineArray.length > 0) {
+    timelineList = `* ${timelineArray[0].trim()}`
+    for (let i = 1; i < timelineArray.length; i++) {
+      timelineList += `\n[*] ${timelineArray[i].trim()}`
+    }
+  }
+
+  const injuredArray = injuredTeamMembers.split("\n").filter((i) => i.trim())
+  let injuredList = ""
+  if (injuredArray.length > 0) {
+    injuredList = `* ${injuredArray[0].trim()}`
+    for (let i = 1; i < injuredArray.length; i++) {
+      injuredList += `\n[*] ${injuredArray[i].trim()}`
+    }
+  } else {
+    injuredList = "* None"
+  }
 
   let bbcode = ""
   bbcode += "[divbox2=transparent]\n\n"
@@ -53,10 +66,10 @@ export function generateMetroDeploymentBBCode() {
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]1. GENERAL INFORMATION[/color][/size][/b]\n"
   bbcode += "[/divbox]\n"
   bbcode += "[indent=10][u]1.1[/u] [b]INVOLVED PLATOONS: [/b]\n"
-  bbcode += "[list]D Platoon [cb]" + (dPlatoon ? "c" : "") + "[/cb]\n"
-  bbcode += "K-9 Platoon [cb]" + (k9Platoon ? "c" : "") + "[/cb]\n"
-  bbcode += "H Platoon [cb]" + (hPlatoon ? "c" : "") + "[/cb]\n"
-  bbcode += "Bomb Squad [cb]" + (bombSquad ? "c" : "") + "[/cb]\n"
+  bbcode += `[list]D Platoon [cb${dPlatoon ? "c" : ""}][/cb${dPlatoon ? "c" : ""}]\n`
+  bbcode += `K-9 Platoon [cb${k9Platoon ? "c" : ""}][/cb${k9Platoon ? "c" : ""}]\n`
+  bbcode += `H Platoon [cb${hPlatoon ? "c" : ""}][/cb${hPlatoon ? "c" : ""}]\n`
+  bbcode += `Bomb Squad [cb${bombSquad ? "c" : ""}][/cb${bombSquad ? "c" : ""}]\n`
   bbcode += "[/list]\n\n"
   bbcode += "[u]1.2[/u] [b]INCIDENT COMMAND:[/b]\n"
   bbcode += "[list]"
@@ -71,7 +84,7 @@ export function generateMetroDeploymentBBCode() {
   bbcode += "[*] [b]TACTICAL COMMANDER:[/b]\n"
   bbcode += `[list][*] ${tacticalCommander}[/list][/list]\n\n`
   bbcode += "[u]1.3[/u] [b]INVOLVED METROPOLITAN MEMBERS: [/b]\n"
-  bbcode += "[list]\n" + membersList + "\n[/list]\n\n"
+  bbcode += `[list]${membersList}[/list]\n\n`
   bbcode += `[u]1.4[/u] [b]DEPLOYMENT TYPE:[/b] ${deploymentType}[/indent]\n`
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]2. DEPLOYMENT TIMELINE[/color][/size][/b]\n"
   bbcode += "[/divbox]\n"
@@ -79,17 +92,11 @@ export function generateMetroDeploymentBBCode() {
   bbcode += `[u]2.2[/u] [b]LOCATION: [/b] ${location}\n`
   bbcode += "[u]2.3[/u] [b]TIMELINE:[/b]\n"
   bbcode += `[list][*][b]START OF DEPLOYMENT:[/b] ${startTime}\n`
-  bbcode += "[list]\n" + timelineList + "\n[/list]\n"
+  bbcode += `[list]${timelineList}[/list]\n`
   bbcode += `[*][b]END OF DEPLOYMENT:[/b] ${endTime}[/list][/indent]\n`
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]3. CASUALTY & INJURY INFORMATION[/color][/size][/b][/divbox]\n"
   bbcode += "[indent=10][u]3.1[/u] [b]INJURED TEAM MEMBERS: [/b]\n"
-
-  if (injuredList) {
-    bbcode += "[list]\n" + injuredList + "\n[/list]\n\n"
-  } else {
-    bbcode += "[list]\n[*] None\n[/list]\n\n"
-  }
-
+  bbcode += `[list]${injuredList}[/list]\n\n`
   bbcode += `[u]3.3[/u] [b]SUSPECT CASUALTIES:[/b] ${suspectCasualties || "None"}\n`
   bbcode += `[u]3.4[/u] [b]CIVILIAN CASUALTIES:[/b] ${civilianCasualties || "None"}[/indent]\n`
   bbcode += "[br][/br]\n"
