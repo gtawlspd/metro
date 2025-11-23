@@ -10,15 +10,17 @@ export function generateCanineDeploymentBBCode() {
   const divisionalRank = localStorage.getItem("divisionalRank") || ""
   const badgeNumber = localStorage.getItem("badgeNumber") || ""
   const signatureImage = localStorage.getItem("signatureImage") || ""
+  const k9Specialization = localStorage.getItem("k9Specialization") || ""
 
   const date = formatDateForBBCode(getValue("cdDate"))
   const time = getValue("cdTime")
   const location = getValue("cdLocation")
   const searchType = getValue("cdSearchType")
-  const k9Specialization = getValue("cdK9Specialization")
   const positiveAlert = getValue("cdPositiveAlert")
   const itemsLocated = getValue("cdItemsLocated")
   const narrative = getValue("cdNarrative")
+
+  const k9NameWithNumber = k9Number ? `${k9Name} (#${k9Number})` : k9Name
 
   let bbcode = ""
   bbcode += "[divbox2=transparent]\n"
@@ -30,7 +32,7 @@ export function generateCanineDeploymentBBCode() {
   bbcode += "[divbox=black][b][size=150][color=#FFFFFF]1. GENERAL INFORMATION[/color][/size][/b]\n"
   bbcode += "[/divbox]\n"
   bbcode += `[indent=10][b]1.1 | HANDLER NAME:[/b] ${handlerName}\n`
-  bbcode += `[b]1.2 | K-9 NAME:[/b] ${k9Name}\n`
+  bbcode += `[b]1.2 | K-9 NAME:[/b] ${k9NameWithNumber}\n`
   bbcode += `[b]1.3 | K-9 SPECIALIZATION:[/b] ${k9Specialization}\n`
   bbcode += `[b]1.4 | DIVISIONAL RANK:[/b] ${divisionalRank}\n`
   bbcode += `[b]1.5 | SERIAL NUMBER:[/b] ${badgeNumber} [/indent]\n\n`
