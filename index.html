@@ -34,6 +34,14 @@
             <div id="nameAndSerial">
               <input id="handlerName" placeholder="Handler Name" required type="text" />
               <input id="badgeNumber" placeholder="Badge Number" required type="text" />
+              <!-- Added platoon selection dropdown -->
+              <select id="platoon" required>
+                <option value="">Select Platoon</option>
+                <option value="K9 Platoon">K9 Platoon</option>
+                <option value="D Platoon">D Platoon (SWAT)</option>
+                <option value="H Platoon">H Platoon</option>
+                <option value="Bomb Squad">Bomb Squad</option>
+              </select>
               <input id="k9Name" placeholder="K9 Name (optional)" type="text" />
               <input id="k9Number" placeholder="K9 Number (auto)" readonly type="text" />
               <input id="k9Specialization" placeholder="K9 Specialization (optional)" type="text" list="k9SpecializationList" />

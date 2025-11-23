@@ -7,6 +7,8 @@ export function generateMetroDeploymentBBCode() {
 
   const handlerName = localStorage.getItem("handlerName") || ""
   const signatureImage = localStorage.getItem("signatureImage") || ""
+  const platoon = localStorage.getItem("platoon") || ""
+  const rank = localStorage.getItem("divisionalRank") || ""
 
   const dPlatoon = getChecked("mdDPlatoon")
   const k9Platoon = getChecked("mdK9Platoon")
@@ -27,6 +29,14 @@ export function generateMetroDeploymentBBCode() {
   const civilianCasualties = getValue("mdCivilianCasualties")
 
   const membersArray = involvedMembers.split("\n").filter((m) => m.trim())
+  const userEntry = `${platoon} ${rank} ${handlerName}`.trim()
+
+  const userInList = membersArray.some((member) => member.toLowerCase().includes(handlerName.toLowerCase()))
+
+  if (!userInList && userEntry) {
+    membersArray.unshift(userEntry)
+  }
+
   let membersList = ""
   if (membersArray.length > 0) {
     membersList = `${membersArray[0].trim()}`

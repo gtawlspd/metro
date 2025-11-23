@@ -5,6 +5,10 @@ export function generatePatrolReportBBCode() {
   const getValue = (id) => document.getElementById(id)?.value || ""
   const getChecked = (id) => document.getElementById(id)?.checked || false
 
+  const handlerName = localStorage.getItem("handlerName") || ""
+  const platoon = localStorage.getItem("platoon") || ""
+  const rank = localStorage.getItem("divisionalRank") || ""
+
   const date = formatDateForBBCode(getValue("prDate"))
   const officers = getValue("prOfficers")
   const caninePatrol = getChecked("prCaninePatrol")
@@ -14,10 +18,17 @@ export function generatePatrolReportBBCode() {
   const deployments = getValue("prDeployments")
   const additionalInfo = getValue("prAdditionalInfo")
 
-  const officersList = officers
-    .split("\n")
-    .filter((o) => o.trim())
-    .join("\n")
+  const officersArray = officers.split("\n").filter((o) => o.trim())
+  const userEntry = `${platoon} ${rank} ${handlerName}`.trim()
+
+  // Check if user is already in the list
+  const userInList = officersArray.some((officer) => officer.toLowerCase().includes(handlerName.toLowerCase()))
+
+  if (!userInList && userEntry) {
+    officersArray.unshift(userEntry)
+  }
+
+  const officersList = officersArray.join("\n")
 
   const deploymentLines = deployments
     .split("\n")

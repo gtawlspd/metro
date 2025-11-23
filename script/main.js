@@ -47,6 +47,14 @@ function calculateK9Number(badgeNumber) {
   return lastThree
 }
 
+function getPlatoonDisplayName(platoon) {
+  if (platoon === "D Platoon") return "SWAT"
+  if (platoon === "K9 Platoon") return "K9"
+  if (platoon === "H Platoon") return "H Platoon"
+  if (platoon === "Bomb Squad") return "Bomb Squad"
+  return platoon
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   setupDropdowns()
   loadSavedReports()
@@ -88,6 +96,30 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
     hideAllSections()
     document.getElementById("mdDate").value = setTodayDate()
+
+    const platoon = localStorage.getItem("platoon") || ""
+    const handlerName = localStorage.getItem("handlerName") || ""
+    const rank = localStorage.getItem("divisionalRank") || ""
+
+    if (platoon === "K9 Platoon") {
+      document.getElementById("mdK9Platoon").checked = true
+    } else if (platoon === "D Platoon") {
+      document.getElementById("mdDPlatoon").checked = true
+    } else if (platoon === "H Platoon") {
+      document.getElementById("mdHPlatoon").checked = true
+    } else if (platoon === "Bomb Squad") {
+      document.getElementById("mdBombSquad").checked = true
+    }
+
+    const involvedMembersField = document.getElementById("mdInvolvedMembers")
+    if (handlerName && rank && platoon) {
+      const displayPlatoon = getPlatoonDisplayName(platoon)
+      const userEntry = `${displayPlatoon} ${rank} ${handlerName}`
+      if (!involvedMembersField.value.includes(handlerName)) {
+        involvedMembersField.value = userEntry + (involvedMembersField.value ? "\n" + involvedMembersField.value : "")
+      }
+    }
+
     document.getElementById("metroDeploymentGenerator").style.display = "block"
     document.getElementById("metroDeploymentGenerator").scrollIntoView({ behavior: "smooth" })
     initializeAutosave("metroDeployment", document.getElementById("metroDeploymentForm"))
@@ -98,6 +130,20 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
     hideAllSections()
     document.getElementById("prDate").value = setTodayDate()
+
+    const platoon = localStorage.getItem("platoon") || ""
+    const handlerName = localStorage.getItem("handlerName") || ""
+    const rank = localStorage.getItem("divisionalRank") || ""
+
+    const officersField = document.getElementById("prOfficers")
+    if (handlerName && rank && platoon) {
+      const displayPlatoon = getPlatoonDisplayName(platoon)
+      const userEntry = `${displayPlatoon} ${rank} ${handlerName}`
+      if (!officersField.value.includes(handlerName)) {
+        officersField.value = userEntry + (officersField.value ? "\n" + officersField.value : "")
+      }
+    }
+
     document.getElementById("patrolReportGenerator").style.display = "block"
     document.getElementById("patrolReportGenerator").scrollIntoView({ behavior: "smooth" })
     initializeAutosave("patrolReport", document.getElementById("patrolReportForm"))
@@ -225,6 +271,7 @@ export function handleSidebarSaveEdit(e) {
   if (button.textContent === "SUBMIT") {
     const handlerName = document.getElementById("handlerName").value
     const badgeNumber = document.getElementById("badgeNumber").value
+    const platoon = document.getElementById("platoon").value
     const k9Name = document.getElementById("k9Name").value
     const k9Specialization = document.getElementById("k9Specialization").value
     const divisionalRank = document.getElementById("divisionalRank").value
@@ -234,6 +281,7 @@ export function handleSidebarSaveEdit(e) {
 
     localStorage.setItem("handlerName", handlerName)
     localStorage.setItem("badgeNumber", badgeNumber)
+    localStorage.setItem("platoon", platoon)
     localStorage.setItem("k9Name", k9Name)
     localStorage.setItem("k9Number", k9Number)
     localStorage.setItem("k9Specialization", k9Specialization)
@@ -247,6 +295,7 @@ export function handleSidebarSaveEdit(e) {
       <div id="nameAndSerial">
         <span class="static-text">${handlerName}</span><br>
         <span id="serialNumberStatic" class="static-text">#${badgeNumber}</span><br>
+        <span class="static-text">Platoon: ${platoon}</span><br>
         <span class="static-text">K9: ${k9Name} (#${k9Number})</span><br>
         <span class="static-text">${k9Specialization}</span><br>
         <span class="static-text">${divisionalRank}</span>
@@ -260,6 +309,7 @@ export function handleSidebarSaveEdit(e) {
   } else {
     const handlerName = localStorage.getItem("handlerName") || ""
     const badgeNumber = localStorage.getItem("badgeNumber") || ""
+    const platoon = localStorage.getItem("platoon") || ""
     const k9Name = localStorage.getItem("k9Name") || ""
     const k9Specialization = localStorage.getItem("k9Specialization") || ""
     const divisionalRank = localStorage.getItem("divisionalRank") || ""
@@ -271,6 +321,13 @@ export function handleSidebarSaveEdit(e) {
       <div id="nameAndSerial">
         <input id="handlerName" type="text" placeholder="Handler Name" value="${handlerName}" />
         <input id="badgeNumber" type="text" placeholder="Badge Number" value="${badgeNumber}" />
+        <select id="platoon" required>
+          <option value="">Select Platoon</option>
+          <option value="K9 Platoon" ${platoon === "K9 Platoon" ? "selected" : ""}>K9 Platoon</option>
+          <option value="D Platoon" ${platoon === "D Platoon" ? "selected" : ""}>D Platoon (SWAT)</option>
+          <option value="H Platoon" ${platoon === "H Platoon" ? "selected" : ""}>H Platoon</option>
+          <option value="Bomb Squad" ${platoon === "Bomb Squad" ? "selected" : ""}>Bomb Squad</option>
+        </select>
         <input id="k9Name" type="text" placeholder="K9 Name (optional)" value="${k9Name}" />
         <input id="k9Number" type="text" placeholder="K9 Number (auto)" value="${k9Number}" readonly />
         <input id="k9Specialization" type="text" placeholder="K9 Specialization (optional)" value="${k9Specialization}" list="k9SpecializationList" />

@@ -7,20 +7,31 @@ export function hideAllSections() {
   document.getElementById("patrolReportGenerator").style.display = "none"
 }
 
+function getPlatoonDisplayName(platoon) {
+  if (platoon === "D Platoon") return "SWAT"
+  if (platoon === "K9 Platoon") return "K9"
+  if (platoon === "H Platoon") return "H Platoon"
+  if (platoon === "Bomb Squad") return "Bomb Squad"
+  return platoon
+}
+
 export function populateStaticHandlerInfo() {
   const handlerName = localStorage.getItem("handlerName")
   const badgeNumber = localStorage.getItem("badgeNumber")
+  const platoon = localStorage.getItem("platoon")
   const k9Name = localStorage.getItem("k9Name")
   const k9Number = localStorage.getItem("k9Number")
   const divisionalRank = localStorage.getItem("divisionalRank")
 
-  if (handlerName && badgeNumber && k9Name && k9Number && divisionalRank) {
+  if (handlerName && badgeNumber && platoon && divisionalRank) {
+    const displayPlatoon = getPlatoonDisplayName(platoon)
     const form = document.getElementById("officerForm")
     form.innerHTML = `
       <div id="nameAndSerial">
         <span class="static-text">${handlerName}</span><br>
         <span id="serialNumberStatic" class="static-text">#${badgeNumber}</span><br>
-        <span class="static-text">K9: ${k9Name} (#${k9Number})</span><br>
+        <span class="static-text">Platoon: ${displayPlatoon}</span><br>
+        ${k9Name ? `<span class="static-text">K9: ${k9Name} (#${k9Number})</span><br>` : ""}
         <span class="static-text">${divisionalRank}</span>
       </div>
       <button id="formButton" type="submit">EDIT</button>
