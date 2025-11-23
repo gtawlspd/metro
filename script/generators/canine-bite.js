@@ -57,11 +57,11 @@ export function generateCanineBiteBBCode() {
   bbcode += `${narrative}\n\n`
   bbcode += "[b]3.3 | SIGNATURE:[/b]\n\n"
 
-  if (signatureImage) {
+  if (signatureImage && signatureImage.trim().length > 0) {
     bbcode += `[img]${signatureImage}[/img]\n`
     bbcode += `${handlerName}[/indent]\n`
   } else {
-    bbcode += `${handlerName}[/indent]\n`
+    bbcode += `[ucase]${handlerName}[/ucase][/indent]\n`
   }
 
   bbcode += "[/divbox2]"
