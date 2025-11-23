@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>LAPD Metropolitan Division - K9 Unit Report System</title>
+  <link rel="icon" href="ftp-main/images/lspdmetrologo.png" type="image/png">
+  <link href="styles/index.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <!-- Using Rajdhani font for tactical/military feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="background">
+  <div class="sidebar">
+    <!-- Using Metro logo in sidebar -->
+    <img alt="LAPD Metro Division Logo" class="sidebar-image" src="ftp-main/images/lspdmetrologo.png" />
+    
+    <div class="server-clock">
+      <div class="clock-time" id="gmtClock">00:00:00</div>
+      <div class="clock-label">(Current Server Time)</div>
+    </div>
+    
+    <div class="officer-inputs">
+      <form id="officerForm">
+        <div id="nameAndSerial">
+          <input id="handlerName" placeholder="Handler Name" required type="text" />
+          <input id="badgeNumber" placeholder="Badge Number" required type="text" />
+          <input id="k9Name" placeholder="K9 Name" required type="text" />
+          <input id="k9Number" placeholder="K9 Number" required type="text" />
+          <input id="divisionalRank" placeholder="Divisional Rank" required type="text" />
+        </div>
+        <label for="signatureUpload" class="signature-label">Upload Signature (.png)</label>
+        <input id="signatureUpload" type="file" accept=".png,image/png" />
+        <button id="formButton" type="submit">SUBMIT</button>
+      </form>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn">Saved Reports</button>
+      <div class="dropdown-content" id="savedReportsDropdown"></div>
+    </div>
+  </div>
+
+  <div id="mainContent">
+    <!-- Updated header with tactical Metro branding -->
+    <div class="header-section">
+      <img class="header-logo" src="ftp-main/images/lspdmetrologo.png" alt="Metro Division Logo" />
+      <div class="header-text">
+        <h1 class="main-title">LAPD METROPOLITAN DIVISION</h1>
+        <h2 class="sub-title">K9 UNIT REPORT SYSTEM</h2>
+      </div>
+      <img class="header-logo" src="ftp-main/images/lspdcaninelogo.png" alt="K9 Unit Logo" />
+    </div>
+    
+    <div class="prdcontainer">
+      <div class="ftp-container">
+        <!-- Updated report buttons with appropriate logos -->
+        <a class="image-button" href="#" id="canineDeploymentButton">
+          <div class="button-badge">K9</div>
+          <img alt="Canine Deployment" src="ftp-main/images/lspdcaninelogo.png" />
+          <p>CANINE DEPLOYMENT REPORT</p>
+        </a>
+        <a class="image-button" href="#" id="canineBiteButton">
+          <div class="button-badge alert">K9</div>
+          <img alt="Canine Bite" src="ftp-main/images/lspdcaninelogo.png" />
+          <p>CANINE BITE REPORT</p>
+        </a>
+        <a class="image-button" href="#" id="canineSearchButton">
+          <div class="button-badge">K9</div>
+          <img alt="Canine Search" src="ftp-main/images/lspdcaninelogo.png" />
+          <p>CANINE SEARCH REPORT</p>
+        </a>
+        <a class="image-button" href="#" id="metroDeploymentButton">
+          <div class="button-badge metro">METRO</div>
+          <img alt="Metro Deployment" src="ftp-main/images/lspdmetrologo.png" />
+          <p>METROPOLITAN DEPLOYMENT</p>
+        </a>
+        <a class="image-button" href="#" id="patrolReportButton">
+          <div class="button-badge">PATROL</div>
+          <img alt="Patrol Report" src="ftp-main/images/lspd.png" />
+          <p>PATROL REPORT</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canine Deployment Report Generator -->
+  <div id="canineDeploymentGenerator" style="display: none;">
+    <button class="orientation-back-button" id="canineDeploymentBackButton">Back</button>
+    <div class="container orientation-container">
+      <h1>Canine Deployment Report</h1>
+      <form id="canineDeploymentForm">
+        <div class="header-info-grid">
+          <div class="header-inputs">
+            <label for="cdDate">Date:</label>
+            <input id="cdDate" required type="date" />
+            <label for="cdTime">Time:</label>
+            <input id="cdTime" placeholder="HH:MM" required type="text" />
+            <label for="cdLocation">Location of Deployment:</label>
+            <input id="cdLocation" placeholder="Road Name, District Name" required type="text" />
+            <label for="cdSearchType">Type of Search:</label>
+            <select id="cdSearchType" required>
+              <option value="">Select...</option>
+              <option value="VEHICLE">VEHICLE</option>
+              <option value="BUILDING">BUILDING</option>
+              <option value="OPEN AREA">OPEN AREA</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+            <label for="cdK9Specialization">K-9 Specialization:</label>
+            <select id="cdK9Specialization" required>
+              <option value="">Select...</option>
+              <option value="FIREARMS">FIREARMS</option>
+              <option value="NARCOTICS">NARCOTICS</option>
+              <option value="EXPLOSIVES">EXPLOSIVES</option>
+              <option value="DUAL PURPOSE">DUAL PURPOSE</option>
+            </select>
+            <label for="cdPositiveAlert">Positive Alert:</label>
+            <select id="cdPositiveAlert" required>
+              <option value="">Select...</option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+            </select>
+            <label for="cdItemsLocated">Items Located:</label>
+            <textarea id="cdItemsLocated" placeholder="Enter items located..."></textarea>
+          </div>
+          <div class="header-tasks">
+            <label for="cdNarrative">Incident Narrative:</label>
+            <textarea id="cdNarrative" placeholder="Enter detailed narrative..." required></textarea>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="generateCanineDeployment" type="submit">Generate BBCode</button>
+          <button id="newCanineDeployment" type="button">New Report</button>
+        </div>
+      </form>
+      <h2>Generated BBCode</h2>
+      <textarea id="cdBBCodeOutput" readonly style="width: calc(100% - 250px); height: 300px; resize: none;"></textarea>
+    </div>
+  </div>
+
+  <!-- Canine Bite Report Generator -->
+  <div id="canineBiteGenerator" style="display: none;">
+    <button class="orientation-back-button" id="canineBiteBackButton">Back</button>
+    <div class="container orientation-container">
+      <h1>Canine Bite Report</h1>
+      <form id="canineBiteForm">
+        <div class="header-info-grid">
+          <div class="header-inputs">
+            <label for="cbDate">Date:</label>
+            <input id="cbDate" required type="date" />
+            <label for="cbTime">Time:</label>
+            <input id="cbTime" placeholder="HH:MM" required type="text" />
+            <label for="cbNameOfBitten">Name of Bitten:</label>
+            <input id="cbNameOfBitten" placeholder="Name" required type="text" />
+            <label for="cbExtentOfInjuries">Extent of Injuries:</label>
+            <textarea id="cbExtentOfInjuries" placeholder="Describe injuries..."></textarea>
+            <label for="cbFDAttendance">FD Attendance:</label>
+            <select id="cbFDAttendance" required>
+              <option value="">Select...</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="header-tasks">
+            <label for="cbOtherOfficers">Other Officers Onscene:</label>
+            <textarea id="cbOtherOfficers" placeholder="Departmental Rank Firstname Lastname (one per line)"></textarea>
+            <label for="cbNarrative">Incident Narrative:</label>
+            <textarea id="cbNarrative" placeholder="Enter detailed narrative..." required></textarea>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="generateCanineBite" type="submit">Generate BBCode</button>
+          <button id="newCanineBite" type="button">New Report</button>
+        </div>
+      </form>
+      <h2>Generated BBCode</h2>
+      <textarea id="cbBBCodeOutput" readonly style="width: calc(100% - 250px); height: 300px; resize: none;"></textarea>
+    </div>
+  </div>
+
+  <!-- Canine Search Report Generator -->
+  <div id="canineSearchGenerator" style="display: none;">
+    <button class="orientation-back-button" id="canineSearchBackButton">Back</button>
+    <div class="container orientation-container">
+      <h1>Canine Search Report</h1>
+      <form id="canineSearchForm">
+        <div class="header-info-grid">
+          <div class="header-inputs">
+            <label for="csIncidentCommander">Incident Commander (if applicable):</label>
+            <input id="csIncidentCommander" placeholder="LSPD Rank Firstname Lastname" type="text" />
+            <label for="csLocation">Location:</label>
+            <input id="csLocation" placeholder="General area" required type="text" />
+            <label for="csTeamLeader">Team Leader:</label>
+            <input id="csTeamLeader" placeholder="Platoon Rank Firstname Lastname" required type="text" />
+            <label for="csCanineHandlers">Canine Handler(s):</label>
+            <textarea id="csCanineHandlers" placeholder="Platoon Rank Firstname Lastname (one per line)" required></textarea>
+            <label for="csDeploymentType">Type of Deployment:</label>
+            <input id="csDeploymentType" placeholder="Start typing to search..." list="deploymentTypesList" required type="text" />
+            <datalist id="deploymentTypesList"></datalist>
+            <label for="csDate">Date:</label>
+            <input id="csDate" required type="date" />
+            <label for="csTimeStarted">Time Started:</label>
+            <input id="csTimeStarted" placeholder="HH:MM" required type="text" />
+            <label for="csTimeEnded">Time Ended:</label>
+            <input id="csTimeEnded" placeholder="HH:MM" required type="text" />
+          </div>
+          <div class="header-tasks">
+            <label for="csNarrative">Search Narrative:</label>
+            <textarea id="csNarrative" placeholder="Enter detailed narrative..." required></textarea>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="generateCanineSearch" type="submit">Generate BBCode</button>
+          <button id="newCanineSearch" type="button">New Report</button>
+        </div>
+      </form>
+      <h2>Generated BBCode</h2>
+      <textarea id="csBBCodeOutput" readonly style="width: calc(100% - 250px); height: 300px; resize: none;"></textarea>
+    </div>
+  </div>
+
+  <!-- Metropolitan Deployment Report Generator -->
+  <div id="metroDeploymentGenerator" style="display: none;">
+    <button class="orientation-back-button" id="metroDeploymentBackButton">Back</button>
+    <div class="container orientation-container">
+      <h1>Metropolitan Deployment Report</h1>
+      <form id="metroDeploymentForm">
+        <div class="header-info-grid">
+          <div class="header-inputs">
+            <label>Involved Platoons:</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="mdDPlatoon" /> D Platoon</label>
+              <label><input type="checkbox" id="mdK9Platoon" /> K-9 Platoon</label>
+              <label><input type="checkbox" id="mdHPlatoon" /> H Platoon</label>
+              <label><input type="checkbox" id="mdBombSquad" /> Bomb Squad</label>
+            </div>
+            <label for="mdIncidentCommander">Incident Commander (if applicable):</label>
+            <input id="mdIncidentCommander" placeholder="LSPD Rank Firstname Lastname" type="text" />
+            <label for="mdCrisisNegotiator">Crisis Negotiator (if applicable):</label>
+            <input id="mdCrisisNegotiator" placeholder="LSPD Rank Firstname Lastname" type="text" />
+            <label for="mdTacticalCommander">Tactical Commander:</label>
+            <input id="mdTacticalCommander" placeholder="Platoon Rank Firstname Lastname" required type="text" />
+            <label for="mdInvolvedMembers">Involved Metropolitan Members:</label>
+            <textarea id="mdInvolvedMembers" placeholder="Platoon Rank Firstname Lastname (one per line)" required></textarea>
+            <label for="mdDeploymentType">Deployment Type:</label>
+            <input id="mdDeploymentType" placeholder="Start typing to search..." list="mdDeploymentTypesList" required type="text" />
+            <datalist id="mdDeploymentTypesList"></datalist>
+            <label for="mdDate">Date:</label>
+            <input id="mdDate" required type="date" />
+            <label for="mdLocation">Location:</label>
+            <input id="mdLocation" placeholder="Streetname, nr, area" required type="text" />
+            <label for="mdStartTime">Start of Deployment:</label>
+            <input id="mdStartTime" placeholder="HH:MM" required type="text" />
+            <label for="mdEndTime">End of Deployment:</label>
+            <input id="mdEndTime" placeholder="HH:MM" required type="text" />
+          </div>
+          <div class="header-tasks">
+            <label for="mdTimeline">Timeline:</label>
+            <textarea id="mdTimeline" placeholder="Event nr. 1&#10;Event nr. 2&#10;Event nr. 3" required></textarea>
+            <label for="mdInjuredTeamMembers">Injured Team Members:</label>
+            <textarea id="mdInjuredTeamMembers" placeholder="Rank Firstname Lastname - Status (one per line)"></textarea>
+            <label for="mdSuspectCasualties">Suspect Casualties:</label>
+            <textarea id="mdSuspectCasualties" placeholder="Details"></textarea>
+            <label for="mdCivilianCasualties">Civilian Casualties:</label>
+            <textarea id="mdCivilianCasualties" placeholder="Details"></textarea>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="generateMetroDeployment" type="submit">Generate BBCode</button>
+          <button id="newMetroDeployment" type="button">New Report</button>
+        </div>
+      </form>
+      <h2>Generated BBCode</h2>
+      <textarea id="mdBBCodeOutput" readonly style="width: calc(100% - 250px); height: 300px; resize: none;"></textarea>
+    </div>
+  </div>
+
+  <!-- Patrol Report Generator -->
+  <div id="patrolReportGenerator" style="display: none;">
+    <button class="orientation-back-button" id="patrolReportBackButton">Back</button>
+    <div class="container orientation-container">
+      <h1>Patrol Report</h1>
+      <form id="patrolReportForm">
+        <div class="header-info-grid">
+          <div class="header-inputs">
+            <label for="prDate">Date of Patrol:</label>
+            <input id="prDate" required type="date" />
+            <label for="prOfficers">Officers:</label>
+            <textarea id="prOfficers" placeholder="PLATOON RANK Firstname Lastname (one per line)" required></textarea>
+            <label>Patrol Type:</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="prCaninePatrol" /> Canine Patrol</label>
+              <label><input type="checkbox" id="prSWATPatrol" /> SWAT Crime Suppression Patrol</label>
+              <label><input type="checkbox" id="prJointPatrol" /> Joint Crime Suppression Patrol</label>
+              <label><input type="checkbox" id="prGangPatrol" /> Gang Crime Suppression Patrol</label>
+            </div>
+          </div>
+          <div class="header-tasks">
+            <label for="prDeployments">Deployments:</label>
+            <textarea id="prDeployments" placeholder="List deployment types or URLs" required></textarea>
+            <label for="prAdditionalInfo">Additional Information:</label>
+            <textarea id="prAdditionalInfo" placeholder="Details about arrests, pursuits, investigations, etc."></textarea>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="generatePatrolReport" type="submit">Generate BBCode</button>
+          <button id="newPatrolReport" type="button">New Report</button>
+        </div>
+      </form>
+      <h2>Generated BBCode</h2>
+      <textarea id="prBBCodeOutput" readonly style="width: calc(100% - 250px); height: 300px; resize: none;"></textarea>
+    </div>
+  </div>
+
+  <script type="module" src="script/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+html,
+body {
+  width: 100%;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  color: #e0e0e0;
+}
+
+.background {
+  /* Updated to tactical dark theme with Rajdhani font */
+  font-family: "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 500;
+  background: linear-gradient(135deg, #000000 0%, #0a0f1a 25%, #141b2e 50%, #0a0f1a 75%, #000000 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(30, 58, 95, 0.03) 2px,
+      rgba(30, 58, 95, 0.03) 4px
+    );
+  background-size: 100% 100%, 40px 40px;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* New header section for dual logo layout */
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin: 40px auto 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(10, 15, 26, 0.9) 0%, rgba(20, 27, 46, 0.9) 100%);
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  border-radius: 8px;
+  max-width: 1200px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.header-logo {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+}
+
+.header-text {
+  text-align: center;
+  flex: 1;
+}
+
+.main-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(30, 58, 95, 0.8), 0 2px 4px rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+}
+
+.sub-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin: 0;
+  color: #4a90e2;
+  text-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+  text-transform: uppercase;
+}
+
+.prdcontainer {
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 5%;
+}
+
+.prdcontainer img {
+  display: inline-block;
+  margin: 10px;
+}
+
+.ftp-container {
+  /* Updated container with darker tactical styling */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  border: 2px solid rgba(30, 58, 95, 0.8);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(20, 27, 46, 0.95) 100%);
+  width: 100%;
+  max-width: 1200px;
+  margin: 28px auto;
+  padding: 40px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 0 60px
+    rgba(30, 58, 95, 0.1);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.image-button {
+  /* Enhanced tactical button design */
+  text-align: center;
+  transform: translateY(0) scale(1);
+  transition: transform 0.3s ease, filter 0.3s ease;
+  position: relative;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(20, 27, 46, 0.6) 0%, rgba(10, 15, 26, 0.6) 100%);
+  border: 2px solid rgba(30, 58, 95, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.image-button:hover {
+  background: linear-gradient(135deg, rgba(30, 58, 95, 0.7) 0%, rgba(20, 27, 46, 0.7) 100%);
+  border-color: #4a90e2;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 30px rgba(74, 144, 226, 0.3);
+}
+
+.button-badge {
+  /* Added badge indicator on buttons */
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
+  color: #4a90e2;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid rgba(74, 144, 226, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  font-family: "Roboto Mono", monospace;
+}
+
+.button-badge.alert {
+  background: linear-gradient(135deg, #5f1e1e 0%, #2e0f0f 100%);
+  color: #e24a4a;
+  border-color: rgba(226, 74, 74, 0.4);
+}
+
+.button-badge.metro {
+  background: linear-gradient(135deg, #2e4a5f 0%, #1a2e3f 100%);
+  color: #4ae2e2;
+  border-color: rgba(74, 226, 226, 0.4);
+}
+
+.image-button img {
+  /* Updated image styling for tactical look */
+  width: 160px;
+  height: 160px;
+  border: 3px solid rgba(30, 58, 95, 0.6);
+  border-radius: 4px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+}
+
+.image-button:hover img {
+  box-shadow: 0 8px 24px rgba(74, 144, 226, 0.4), 0 0 40px rgba(74, 144, 226, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px) scale(1.03);
+  border-color: #4a90e2;
+}
+
+.image-button p {
+  /* Updated text styling for tactical appearance */
+  color: #e8e8e8;
+  white-space: normal;
+  max-width: 180px;
+  transition: color 0.3s ease;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.image-button:hover p {
+  color: #4a90e2;
+  text-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+}
+
+h1 {
+  color: #f5f5f5;
+  text-shadow: 0 0 20px rgba(30, 58, 95, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h2 {
+  color: #4a90e2;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.sidebar {
+  /* Darker tactical sidebar */
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(180deg, #0a0f1a 0%, #000000 100%);
+  border-right: 3px solid rgba(30, 58, 95, 0.8);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.8), inset -1px 0 0 rgba(74, 144, 226, 0.1);
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+body.background {
+  margin-left: 280px;
+}
+
+.sidebar-image {
+  width: 70%;
+  height: auto;
+  display: block;
+  margin: 24px auto 20px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+}
+
+.server-clock {
+  /* Updated clock styling with tactical theme */
+  text-align: center;
+  padding: 16px 12px;
+  margin: 0 12px 16px;
+  background: linear-gradient(135deg, rgba(10, 15, 26, 0.8) 0%, rgba(20, 27, 46, 0.8) 100%);
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 15px rgba(74, 144, 226, 0.1);
+}
+
+.clock-time {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4a90e2;
+  letter-spacing: 3px;
+  font-family: "Roboto Mono", monospace;
+  text-shadow: 0 0 15px rgba(74, 144, 226, 0.6);
+  margin-bottom: 4px;
+}
+
+.clock-label {
+  font-size: 0.58rem;
+  color: #a8a8a8;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: "Roboto Mono", monospace;
+}
+
+.dropdown {
+  margin-bottom: 12px;
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-btn {
+  /* Updated dropdown button styling */
+  width: 100%;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
+  color: #e8e8e8;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.dropdown-btn:hover {
+  background: linear-gradient(135deg, #2a4a6f 0%, #1e3a5f 100%);
+  border-color: #4a90e2;
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.2);
+}
+
+.dropdown-btn::after {
+  content: "\25BC";
+  font-size: 0.75rem;
+  color: #4a90e2;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-btn::after {
+  transform: rotate(180deg);
+}
+
+.dropdown-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  background-color: #000000;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.dropdown-content a {
+  display: block;
+  color: #c8c8c8;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  font-family: "Roboto Mono", monospace;
+}
+
+.dropdown-content a:hover {
+  background-color: #1e3a5f;
+  border-left-color: #4a90e2;
+  color: #f5f5f5;
+  padding-left: 20px;
+}
+
+.dropdown.active .dropdown-content {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.report-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delete-report-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  transition: transform 0.2s ease;
+}
+
+.delete-report-btn:hover {
+  transform: scale(1.2);
+}
+
+.officer-inputs {
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.officer-inputs input[type="text"],
+.officer-inputs input[type="file"] {
+  /* Updated input styling */
+  width: 85%;
+  margin: 8px 0;
+  padding: 10px;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  border-radius: 4px;
+  background: rgba(10, 15, 26, 0.6);
+  color: #e8e8e8;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 500;
+}
+
+.officer-inputs input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background: rgba(10, 15, 26, 0.8);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2), 0 0 15px rgba(74, 144, 226, 0.3);
+}
+
+.officer-inputs input::placeholder {
+  color: rgba(168, 168, 168, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.signature-label {
+  display: block;
+  color: #e8e8e8;
+  font-size: 0.85rem;
+  margin: 8px 0 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.officer-inputs button {
+  /* Updated submit button */
+  width: 88%;
+  margin-top: 12px;
+  padding: 12px;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  border-radius: 4px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.officer-inputs button:hover {
+  background: linear-gradient(135deg, #2a4a6f 0%, #1e3a5f 100%);
+  border-color: #4a90e2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(74, 144, 226, 0.3);
+}
+
+.static-text {
+  color: #e8e8e8;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+#serialNumberStatic {
+  font-size: 1rem;
+  color: #4a90e2;
+}
+
+.orientation-back-button {
+  /* Updated back button styling */
+  position: absolute;
+  left: 300px;
+  top: 16px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
+  color: white;
+  padding: 12px 24px;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.orientation-back-button:hover {
+  background: linear-gradient(135deg, #2a4a6f 0%, #1e3a5f 100%);
+  border-color: #4a90e2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(74, 144, 226, 0.3);
+}
+
+.orientation-container {
+  /* Updated form container styling */
+  background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(20, 27, 46, 0.95) 100%);
+  padding: 32px;
+  margin: 24px 0;
+  width: 100%;
+  max-width: 1000px;
+  min-width: 900px;
+  border-radius: 8px;
+  color: white;
+  border: 2px solid rgba(30, 58, 95, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.orientation-container h1,
+.orientation-container h2 {
+  text-align: center;
+  color: #f5f5f5;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.orientation-container label {
+  font-size: 0.95rem;
+  color: #e8e8e8;
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.orientation-container input,
+.orientation-container textarea,
+.orientation-container select {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  background: rgba(10, 15, 26, 0.6);
+  border-radius: 4px;
+  color: #e8e8e8;
+  width: 92%;
+  transition: all 0.3s ease;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.orientation-container input:focus,
+.orientation-container textarea:focus,
+.orientation-container select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background: rgba(10, 15, 26, 0.8);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2), 0 0 15px rgba(74, 144, 226, 0.3);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.button-row button {
+  width: 50%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 2px solid rgba(30, 58, 95, 0.6);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.button-row button[type="submit"] {
+  background: linear-gradient(135deg, #1e5f3a 0%, #0f2e1c 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.button-row button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2a8050 0%, #1e5f3a 100%);
+  border-color: #4ae290;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(74, 226, 144, 0.3);
+}
+
+.button-row button[type="button"] {
+  background: linear-gradient(135deg, #5f1e1e 0%, #2e0f0f 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.button-row button[type="button"]:hover {
+  background: linear-gradient(135deg, #802020 0%, #5f1e1e 100%);
+  border-color: #e24a4a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(226, 74, 74, 0.3);
+}
+
+.header-info-grid {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  justify-content: flex-start;
+}
+
+.header-inputs {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-tasks {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-tasks textarea {
+  height: 100%;
+  min-height: 300px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
