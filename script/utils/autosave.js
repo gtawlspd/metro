@@ -107,7 +107,7 @@ function restoreFormState(formType) {
         entry.setAttribute("data-index", index)
         entry.innerHTML = `
           <input type="text" class="deployment-type-input" placeholder="Start typing deployment type..." list="prDeploymentTypesList" value="${deployment.type || ""}" />
-          <input type="url" class="deployment-url-input" placeholder="https://forums.example.com/post" value="${deployment.url || ""}" />
+          <input type="url" class="deployment-url-input" placeholder="https://lspd.gta.world/viewforum.php?f=2146" value="${deployment.url || ""}" />
           <button type="button" class="remove-deployment-btn" style="display: ${formData.deployments.length > 1 ? "flex" : "none"};">×</button>
         `
         deploymentsContainer.appendChild(entry)
