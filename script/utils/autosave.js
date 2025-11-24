@@ -47,6 +47,23 @@ function saveFormState(formType, formElement) {
     }
   })
 
+  if (formType === "patrolReport") {
+    const deploymentsContainer = document.getElementById("prDeploymentsContainer")
+    const deploymentEntries = deploymentsContainer?.querySelectorAll(".deployment-entry")
+    const deployments = []
+
+    deploymentEntries?.forEach((entry) => {
+      const typeInput = entry.querySelector(".deployment-type-input")
+      const urlInput = entry.querySelector(".deployment-url-input")
+      deployments.push({
+        type: typeInput?.value || "",
+        url: urlInput?.value || "",
+      })
+    })
+
+    formData.deployments = deployments
+  }
+
   localStorage.setItem(`autosave_${formType}`, JSON.stringify(formData))
 }
 
@@ -76,6 +93,45 @@ function restoreFormState(formType) {
       } else {
         input.value = formData[id]
       }
+    }
+  })
+
+  if (formType === "patrolReport" && formData.deployments && Array.isArray(formData.deployments)) {
+    const deploymentsContainer = document.getElementById("prDeploymentsContainer")
+    if (deploymentsContainer) {
+      deploymentsContainer.innerHTML = ""
+
+      formData.deployments.forEach((deployment, index) => {
+        const entry = document.createElement("div")
+        entry.className = "deployment-entry"
+        entry.setAttribute("data-index", index)
+        entry.innerHTML = `
+          <input type="text" class="deployment-type-input" placeholder="Start typing deployment type..." list="prDeploymentTypesList" value="${deployment.type || ""}" />
+          <input type="url" class="deployment-url-input" placeholder="https://forums.example.com/post" value="${deployment.url || ""}" />
+          <button type="button" class="remove-deployment-btn" style="display: ${formData.deployments.length > 1 ? "flex" : "none"};">×</button>
+        `
+        deploymentsContainer.appendChild(entry)
+
+        const removeBtn = entry.querySelector(".remove-deployment-btn")
+        removeBtn?.addEventListener("click", () => {
+          entry.remove()
+          updateRemoveButtonsInRestore()
+        })
+      })
+    }
+  }
+}
+
+function updateRemoveButtonsInRestore() {
+  const container = document.getElementById("prDeploymentsContainer")
+  const entries = container?.querySelectorAll(".deployment-entry")
+
+  entries?.forEach((entry) => {
+    const removeBtn = entry.querySelector(".remove-deployment-btn")
+    if (entries.length > 1) {
+      removeBtn.style.display = "flex"
+    } else {
+      removeBtn.style.display = "none"
     }
   })
 }

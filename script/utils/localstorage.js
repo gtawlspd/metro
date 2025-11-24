@@ -128,9 +128,35 @@ export function loadReport(report) {
     document.getElementById("prSWATPatrol").checked = data.swatPatrol || false
     document.getElementById("prJointPatrol").checked = data.jointPatrol || false
     document.getElementById("prGangPatrol").checked = data.gangPatrol || false
-    document.getElementById("prDeployments").value = data.deployments || ""
     document.getElementById("prAdditionalInfo").value = data.additionalInfo || ""
     document.getElementById("prBBCodeOutput").value = data.bbcode || ""
+
+    const deploymentsContainer = document.getElementById("prDeploymentsContainer")
+    if (deploymentsContainer && data.deployments && Array.isArray(data.deployments)) {
+      deploymentsContainer.innerHTML = ""
+
+      if (data.deployments.length === 0) {
+        data.deployments = [{ type: "", url: "" }]
+      }
+
+      data.deployments.forEach((deployment, index) => {
+        const entry = document.createElement("div")
+        entry.className = "deployment-entry"
+        entry.setAttribute("data-index", index)
+        entry.innerHTML = `
+          <input type="text" class="deployment-type-input" placeholder="Start typing deployment type..." list="prDeploymentTypesList" value="${deployment.type || ""}" />
+          <input type="url" class="deployment-url-input" placeholder="https://forums.example.com/post" value="${deployment.url || ""}" />
+          <button type="button" class="remove-deployment-btn" style="display: ${data.deployments.length > 1 ? "flex" : "none"};">×</button>
+        `
+        deploymentsContainer.appendChild(entry)
+
+        const removeBtn = entry.querySelector(".remove-deployment-btn")
+        removeBtn?.addEventListener("click", () => {
+          entry.remove()
+          updateRemoveButtonsInLoad()
+        })
+      })
+    }
   }
 
   // Scroll to the loaded form
@@ -140,6 +166,20 @@ export function loadReport(report) {
       activeGenerator.scrollIntoView({ behavior: "smooth" })
     }
   }, 100)
+}
+
+function updateRemoveButtonsInLoad() {
+  const container = document.getElementById("prDeploymentsContainer")
+  const entries = container?.querySelectorAll(".deployment-entry")
+
+  entries?.forEach((entry) => {
+    const removeBtn = entry.querySelector(".remove-deployment-btn")
+    if (entries.length > 1) {
+      removeBtn.style.display = "flex"
+    } else {
+      removeBtn.style.display = "none"
+    }
+  })
 }
 
 export function deleteReport(title) {
