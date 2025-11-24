@@ -61,10 +61,9 @@ export function generateCanineSearchBBCode() {
   bbcode += "[center][b]FILING OFFICER SIGNATURE[/b]\n"
 
   if (signatureImage && signatureImage.trim().length > 0) {
-    bbcode += `[i][img]${signatureImage}[/img][/i]\n`
-    bbcode += `[i]${handlerName}[/i][/center]\n`
+    bbcode += `[img]${signatureImage}[/img][/center]\n`
   } else {
-    bbcode += `[i][ucase]${handlerName}[/ucase][/i][/center]\n`
+    bbcode += `[ucase]${handlerName}[/ucase][/center]\n`
   }
 
   bbcode += "[br][/br]\n"
