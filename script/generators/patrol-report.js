@@ -66,7 +66,7 @@ export function generatePatrolReportBBCode() {
   bbcode += `[cb${jointPatrol ? "c" : ""}][/cb${jointPatrol ? "c" : ""}] Joint Crime Suppression Patrol\n`
   bbcode += `[cb${gangPatrol ? "c" : ""}][/cb${gangPatrol ? "c" : ""}] Gang Crime Suppression Patrol\n\n`
   bbcode += "[b]4. Deployments[/b]\n"
-  bbcode += `${deploymentsFormatted}\n\n`
+  bbcode += `${deploymentsFormatted}\n\n\n`
   bbcode += "[b]5. Additional Information[/b]\n"
   bbcode += `${additionalInfo}\n[/font][/divbox2]`
 
