@@ -48,9 +48,9 @@ function calculateK9Number(badgeNumber) {
 }
 
 function getPlatoonDisplayName(platoon) {
-  if (platoon === "D Platoon") return "SWAT"
+  if (platoon === "D Platoon") return "D"
   if (platoon === "K9 Platoon") return "K9"
-  if (platoon === "H Platoon") return "H Platoon"
+  if (platoon === "H Platoon") return "H"
   if (platoon === "Bomb Squad") return "Bomb Squad"
   return platoon
 }
