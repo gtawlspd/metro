@@ -346,7 +346,7 @@ export function handleSidebarSaveEdit(e) {
         <select id="platoon" required>
           <option value="">Select Platoon</option>
           <option value="K9 Platoon" ${platoon === "K9 Platoon" ? "selected" : ""}>K9 Platoon</option>
-          <option value="D Platoon" ${platoon === "D Platoon" ? "selected" : ""}>D Platoon (SWAT)</option>
+          <option value="D Platoon" ${platoon === "D Platoon" ? "selected" : ""}>D Platoon</option>
           <option value="H Platoon" ${platoon === "H Platoon" ? "selected" : ""}>H Platoon</option>
           <option value="Bomb Squad" ${platoon === "Bomb Squad" ? "selected" : ""}>Bomb Squad</option>
         </select>
@@ -397,7 +397,7 @@ function initializeDeploymentEntries() {
     newEntry.setAttribute("data-index", newIndex)
     newEntry.innerHTML = `
       <input type="text" class="deployment-type-input" placeholder="Start typing deployment type..." list="prDeploymentTypesList" />
-      <input type="url" class="deployment-url-input" placeholder="https://forums.example.com/post" />
+      <input type="url" class="deployment-url-input" placeholder="https://lspd.gta.world/viewforum.php?f=2146" />
       <button type="button" class="remove-deployment-btn">×</button>
     `
 
