@@ -54,7 +54,7 @@ export function generatePatrolReportBBCode() {
 
   console.log("[v0] Deployments formatted:", deploymentsFormatted)
 
-  const additionalInfoFormatted = additionalInfo ? `[indent=10]${additionalInfo}[/indent]` : ""
+  const additionalInfoFormatted = additionalInfo ? `${additionalInfo}` : ""
 
   let bbcode = ""
   bbcode += "[divbox2=transparent][font=Arial][center]LOS SANTOS POLICE DEPARTMENT\n"
