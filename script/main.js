@@ -135,6 +135,26 @@ window.addEventListener("DOMContentLoaded", () => {
     const handlerName = localStorage.getItem("handlerName") || ""
     const rank = localStorage.getItem("divisionalRank") || ""
 
+    if (platoon === "K9 Platoon") {
+      document.getElementById("prCaninePatrol").checked = true
+    } else if (platoon === "D Platoon") {
+      document.getElementById("prSWATPatrol").checked = true
+    }
+
+    const patrolCheckboxes = ["prCaninePatrol", "prSWATPatrol", "prJointPatrol", "prGangPatrol"]
+    patrolCheckboxes.forEach((checkboxId) => {
+      const checkbox = document.getElementById(checkboxId)
+      checkbox?.addEventListener("change", (e) => {
+        if (e.target.checked) {
+          patrolCheckboxes.forEach((id) => {
+            if (id !== checkboxId) {
+              document.getElementById(id).checked = false
+            }
+          })
+        }
+      })
+    })
+
     const officersField = document.getElementById("prOfficers")
     if (handlerName && rank && platoon) {
       const displayPlatoon = getPlatoonDisplayName(platoon)
@@ -143,6 +163,8 @@ window.addEventListener("DOMContentLoaded", () => {
         officersField.value = userEntry + (officersField.value ? "\n" + officersField.value : "")
       }
     }
+
+    initializeDeploymentEntries()
 
     document.getElementById("patrolReportGenerator").style.display = "block"
     document.getElementById("patrolReportGenerator").scrollIntoView({ behavior: "smooth" })
@@ -360,4 +382,58 @@ export function handleSidebarSaveEdit(e) {
   setTimeout(() => {
     document.getElementById("formButton")?.addEventListener("click", handleSidebarSaveEdit)
   }, 0)
+}
+
+function initializeDeploymentEntries() {
+  const addBtn = document.getElementById("addDeploymentBtn")
+  const container = document.getElementById("prDeploymentsContainer")
+
+  addBtn?.addEventListener("click", () => {
+    const entries = container.querySelectorAll(".deployment-entry")
+    const newIndex = entries.length
+
+    const newEntry = document.createElement("div")
+    newEntry.className = "deployment-entry"
+    newEntry.setAttribute("data-index", newIndex)
+    newEntry.innerHTML = `
+      <input type="text" class="deployment-type-input" placeholder="Start typing deployment type..." list="prDeploymentTypesList" />
+      <input type="url" class="deployment-url-input" placeholder="https://forums.example.com/post" />
+      <button type="button" class="remove-deployment-btn">×</button>
+    `
+
+    container.appendChild(newEntry)
+
+    // Add remove button handler
+    const removeBtn = newEntry.querySelector(".remove-deployment-btn")
+    removeBtn.addEventListener("click", () => {
+      newEntry.remove()
+      updateRemoveButtons()
+    })
+
+    updateRemoveButtons()
+  })
+
+  // Initialize remove buttons
+  updateRemoveButtons()
+}
+
+function updateRemoveButtons() {
+  const container = document.getElementById("prDeploymentsContainer")
+  const entries = container?.querySelectorAll(".deployment-entry")
+
+  entries?.forEach((entry, index) => {
+    const removeBtn = entry.querySelector(".remove-deployment-btn")
+    if (entries.length > 1) {
+      removeBtn.style.display = "flex"
+      if (!removeBtn.hasAttribute("data-listener")) {
+        removeBtn.addEventListener("click", () => {
+          entry.remove()
+          updateRemoveButtons()
+        })
+        removeBtn.setAttribute("data-listener", "true")
+      }
+    } else {
+      removeBtn.style.display = "none"
+    }
+  })
 }
