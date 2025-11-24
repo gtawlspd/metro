@@ -152,10 +152,9 @@ export function generateMetroDeploymentBBCode() {
   bbcode += "[aligntable=left,200,0,0,0,0,0][center][b]FILING OFFICER SIGNATURE[/b]\n"
 
   if (signatureImage && signatureImage.trim().length > 0) {
-    bbcode += `[i][img]${signatureImage}[/img][/i]\n`
-    bbcode += `[i]${handlerName}[/i][/center]\n`
+    bbcode += `[img]${signatureImage}[/img][/center]\n`
   } else {
-    bbcode += `[i][ucase]${handlerName}[/ucase][/i][/center]\n`
+    bbcode += `[ucase]${handlerName}[/ucase][/center]\n`
   }
 
   bbcode += "[/aligntable][aligntable=left,721,0,0,0,0,0]\n"
