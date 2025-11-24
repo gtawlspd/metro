@@ -15,33 +15,33 @@ export function generatePatrolReportBBCode() {
   const swatPatrol = getChecked("prSWATPatrol")
   const jointPatrol = getChecked("prJointPatrol")
   const gangPatrol = getChecked("prGangPatrol")
-  const deployments = getValue("prDeployments")
   const additionalInfo = getValue("prAdditionalInfo")
 
   const officersArray = officers.split("\n").filter((o) => o.trim())
-  const userEntry = `${platoon} ${rank} ${handlerName}`.trim()
-
-  // Check if user is already in the list
-  const userInList = officersArray.some((officer) => officer.toLowerCase().includes(handlerName.toLowerCase()))
-
-  if (!userInList && userEntry) {
-    officersArray.unshift(userEntry)
-  }
 
   const officersList = officersArray.join("\n")
 
-  const deploymentLines = deployments
-    .split("\n")
-    .filter((d) => d.trim())
-    .map((line) => {
-      line = line.trim()
-      // Check if line contains URL format: url|name
-      if (line.includes("|")) {
-        const [url, name] = line.split("|").map((s) => s.trim())
-        return `[url=${url}]${name}[/url]`
-      }
-      return line
-    })
+  const deploymentEntries = document.querySelectorAll(".deployment-entry")
+  console.log("[v0] Deployment entries found:", deploymentEntries.length)
+  const deploymentLines = []
+
+  deploymentEntries.forEach((entry, index) => {
+    const typeInput = entry.querySelector(".deployment-type-input")
+    const urlInput = entry.querySelector(".deployment-url-input")
+
+    const type = typeInput?.value.trim() || ""
+    const url = urlInput?.value.trim()
+
+    console.log(`[v0] Deployment ${index}:`, { type, url })
+
+    if (type && url) {
+      deploymentLines.push(`[url=${url}]${type}[/url]`)
+    } else if (type) {
+      deploymentLines.push(type)
+    }
+  })
+
+  console.log("[v0] Deployment lines:", deploymentLines)
 
   let deploymentsFormatted = ""
   if (deploymentLines.length > 0) {
@@ -51,6 +51,10 @@ export function generatePatrolReportBBCode() {
     }
     deploymentsFormatted += "[/list]"
   }
+
+  console.log("[v0] Deployments formatted:", deploymentsFormatted)
+
+  const additionalInfoFormatted = additionalInfo ? `[indent=10]${additionalInfo}[/indent]` : ""
 
   let bbcode = ""
   bbcode += "[divbox2=transparent][font=Arial][center]LOS SANTOS POLICE DEPARTMENT\n"
@@ -66,9 +70,9 @@ export function generatePatrolReportBBCode() {
   bbcode += `[cb${jointPatrol ? "c" : ""}][/cb${jointPatrol ? "c" : ""}] Joint Crime Suppression Patrol\n`
   bbcode += `[cb${gangPatrol ? "c" : ""}][/cb${gangPatrol ? "c" : ""}] Gang Crime Suppression Patrol\n\n`
   bbcode += "[b]4. Deployments[/b]\n"
-  bbcode += `${deploymentsFormatted}\n\n\n`
+  bbcode += `${deploymentsFormatted}\n\n`
   bbcode += "[b]5. Additional Information[/b]\n"
-  bbcode += `${additionalInfo}\n[/font][/divbox2]`
+  bbcode += `${additionalInfoFormatted}\n[/font][/divbox2]`
 
   const outputElem = document.getElementById("prBBCodeOutput")
   outputElem.value = bbcode
@@ -80,6 +84,16 @@ export function generatePatrolReportBBCode() {
     console.error("Clipboard copy failed", err)
   }
 
+  const deploymentsData = []
+  deploymentEntries.forEach((entry) => {
+    const typeInput = entry.querySelector(".deployment-type-input")
+    const urlInput = entry.querySelector(".deployment-url-input")
+    deploymentsData.push({
+      type: typeInput?.value || "",
+      url: urlInput?.value || "",
+    })
+  })
+
   saveReport("patrolReport", {
     date: getValue("prDate"),
     officers,
@@ -87,7 +101,7 @@ export function generatePatrolReportBBCode() {
     swatPatrol,
     jointPatrol,
     gangPatrol,
-    deployments,
+    deployments: deploymentsData,
     additionalInfo,
     bbcode,
   })
