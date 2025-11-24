@@ -35,6 +35,7 @@ const deploymentTypes = [
 export function loadDeploymentTypes() {
   const datalist1 = document.getElementById("deploymentTypesList")
   const datalist2 = document.getElementById("mdDeploymentTypesList")
+  const datalist3 = document.getElementById("prDeploymentTypesList")
 
   if (datalist1) {
     deploymentTypes.forEach((type) => {
@@ -49,6 +50,14 @@ export function loadDeploymentTypes() {
       const option = document.createElement("option")
       option.value = type
       datalist2.appendChild(option)
+    })
+  }
+
+  if (datalist3) {
+    deploymentTypes.forEach((type) => {
+      const option = document.createElement("option")
+      option.value = type
+      datalist3.appendChild(option)
     })
   }
 }
