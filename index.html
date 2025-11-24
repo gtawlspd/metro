@@ -316,9 +316,17 @@
             </div>
           </div>
           <div class="header-tasks">
-            <label for="prDeployments">Deployments:</label>
-            <!-- Added helper text for URL linking format -->
-            <textarea id="prDeployments" placeholder="Format: url|Name (e.g., lspd.com|Breaching)" required></textarea>
+            <label>Deployments:</label>
+            <div id="prDeploymentsContainer">
+              <div class="deployment-entry" data-index="0">
+                <input type="text" class="deployment-type-input" placeholder="Start typing deployment type..." list="prDeploymentTypesList" />
+                <input type="url" class="deployment-url-input" placeholder="https://forums.example.com/post" />
+                <button type="button" class="remove-deployment-btn" style="display: none;">×</button>
+              </div>
+            </div>
+            <datalist id="prDeploymentTypesList"></datalist>
+            <button type="button" id="addDeploymentBtn" class="add-btn">+ Add Deployment</button>
+            
             <label for="prAdditionalInfo">Additional Information:</label>
             <textarea id="prAdditionalInfo" placeholder="Details about arrests, pursuits, investigations, etc."></textarea>
           </div>
