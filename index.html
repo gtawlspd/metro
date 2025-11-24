@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <!-- Updated title to Metropolitan Report Generator -->
   <title>LSPD Metropolitan Division - Metropolitan Report Generator</title>
   <link rel="icon" href="ftp-main/images/lspdmetrologo.png" type="image/png">
   <link href="styles/index.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-  <!-- Using Rajdhani font for tactical/military feel -->
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
@@ -21,7 +19,6 @@
       <div class="clock-label">(Current Server Time)</div>
     </div>
     
-    <!-- Updated to "OPERATOR SETTINGS" -->
     <div class="settings-section">
       <button class="settings-toggle-btn" id="settingsToggleBtn">
         <span id="settingsToggleText">OPERATOR SETTINGS</span>
@@ -34,7 +31,6 @@
             <div id="nameAndSerial">
               <input id="handlerName" placeholder="Handler Name" required type="text" />
               <input id="badgeNumber" placeholder="Badge Number" required type="text" />
-              <!-- Added platoon selection dropdown -->
               <select id="platoon" required>
                 <option value="">Select Platoon</option>
                 <option value="K9 Platoon">K9 Platoon</option>
@@ -70,12 +66,12 @@
 
   <div id="mainContent">
     <div class="header-section">
+      <img class="header-logo" src="ftp-main/images/lspdcaninelogo.png" alt="K9 Unit Logo" />
+      <img class="header-logo" src="ftp-main/images/swat.png" alt="D Platoon Logo" />
       <div class="header-text">
         <h1 class="main-title">LSPD METROPOLITAN DIVISION</h1>
         <h2 class="sub-title">METROPOLITAN REPORT GENERATOR</h2>
       </div>
-      <img class="header-logo" src="ftp-main/images/lspdcaninelogo.png" alt="K9 Unit Logo" />
-      <img class="header-logo" src="ftp-main/images/swat.png" alt="D Platoon Logo" />
       <img class="header-logo" src="ftp-main/images/hplatoon.png" alt="H Platoon Logo" />
     </div>
     
