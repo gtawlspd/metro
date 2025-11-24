@@ -13,7 +13,7 @@ body {
 }
 
 .background {
-  /* Updated to tactical dark theme with Rajdhani font */
+
   font-family: "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 500;
   background: linear-gradient(135deg, #000000 0%, #0a0f1a 25%, #141b2e 50%, #0a0f1a 75%, #000000 100%),
@@ -32,7 +32,7 @@ a {
   text-decoration: none;
 }
 
-/* New header section for dual logo layout */
+/* header */
 .header-section {
   display: flex;
   align-items: center;
@@ -92,7 +92,7 @@ a {
 }
 
 .ftp-container {
-  /* Updated container with darker tactical styling */
+  /* dark container */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -112,7 +112,7 @@ a {
 }
 
 .image-button {
-  /* Enhanced tactical button design */
+  /* button design */
   text-align: center;
   transform: translateY(0) scale(1);
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -131,7 +131,7 @@ a {
 }
 
 .button-badge {
-  /* Added badge indicator on buttons */
+  /* indicator on buttons */
   position: absolute;
   top: 8px;
   right: 8px;
@@ -160,7 +160,7 @@ a {
 }
 
 .image-button img {
-  /* Updated image styling for tactical look */
+  /* image styling */
   width: 160px;
   height: 160px;
   border: 3px solid rgba(30, 58, 95, 0.6);
@@ -178,7 +178,7 @@ a {
 }
 
 .image-button p {
-  /* Updated text styling for tactical appearance */
+  /* text styling */
   color: #e8e8e8;
   white-space: normal;
   max-width: 180px;
@@ -253,7 +253,7 @@ h2 {
 
 body.background {
   margin-left: 280px;
-  /* Added smooth transition for content shift */
+  /* smooth transition for content shift */
   transition: margin-left 0.4s ease;
 }
 
@@ -270,7 +270,7 @@ body.background.sidebar-collapsed {
 }
 
 .server-clock {
-  /* Updated clock styling with tactical theme */
+  /* clock styling */
   text-align: center;
   padding: 16px 12px;
   margin: 0 12px 16px;
@@ -306,7 +306,7 @@ body.background.sidebar-collapsed {
 }
 
 .dropdown-btn {
-  /* Updated dropdown button styling */
+  /* dropdown button */
   width: 100%;
   background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
   color: #e8e8e8;
@@ -406,7 +406,7 @@ body.background.sidebar-collapsed {
 .officer-inputs input[type="text"],
 .officer-inputs input[type="url"],
 .officer-inputs input[type="file"] {
-  /* Updated input styling */
+  /* input styling */
   width: 85%;
   margin: 8px 0;
   padding: 10px;
@@ -445,7 +445,7 @@ body.background.sidebar-collapsed {
 }
 
 .officer-inputs button {
-  /* Updated submit button */
+  /* submit button */
   width: 88%;
   margin-top: 12px;
   padding: 12px;
@@ -482,7 +482,7 @@ body.background.sidebar-collapsed {
 }
 
 .orientation-back-button {
-  /* Updated back button styling */
+  /* back button */
   position: absolute;
   left: 300px;
   top: 16px;
@@ -509,7 +509,7 @@ body.background.sidebar-collapsed {
 }
 
 .orientation-container {
-  /* Updated form container styling */
+  /* form container */
   background: linear-gradient(135deg, rgba(10, 15, 26, 0.95) 0%, rgba(20, 27, 46, 0.95) 100%);
   padding: 32px;
   margin: 24px 0;
@@ -711,7 +711,7 @@ body.background.sidebar-collapsed {
   opacity: 0;
 }
 
-/* Added styles for deployment entry system */
+/* deployment entry system */
 .deployment-entry {
   display: flex;
   gap: 8px;
