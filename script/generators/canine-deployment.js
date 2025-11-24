@@ -58,7 +58,6 @@ export function generateCanineDeploymentBBCode() {
   if (signatureImage && signatureImage.trim().length > 0) {
     bbcode += `[b]3.2 | SIGNATURE:[/b]\n\n`
     bbcode += `[img]${signatureImage}[/img]\n`
-    bbcode += `${handlerName}\n`
   } else {
     bbcode += `[b]3.2 | SIGNATURE:[/b] [ucase]${handlerName}[/ucase]\n`
   }
